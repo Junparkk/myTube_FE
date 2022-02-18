@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const Button = (props) => {
   const {
@@ -42,13 +42,13 @@ Button.defaultProps = {
   _onClick: () => {},
   children: null,
   margin: false,
-  padding: "12px 0px",
+  padding: '12px 0px',
   disable: false,
-  color: "#fff",
-  width: "100%",
-  cursor: "pointer",
-  bg: "#000000",
-  borderRadius: "5px",
+  color: '#fff',
+  width: '100%',
+  cursor: 'pointer',
+  bg: '#000000',
+  borderRadius: '5px',
   postion: false,
 };
 
@@ -60,7 +60,7 @@ const ElButton = styled.button`
   background-color: ${(props) => props.bg};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
-  ${(props) => (props.margin ? `margin:${props.margin};` : "")};
+  ${(props) => (props.margin ? `margin:${props.margin};` : '')};
   cursor: ${(props) => props.cursor};
   position: ${(props) => props.position};
 `;

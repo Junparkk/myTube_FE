@@ -17,9 +17,14 @@ const Grid = (props) => {
     borderRadius,
     position,
     justifyContent,
+
+    is_post_box,
+    is_category_box,
+
     boxSizing,
     borderStyle,
     alignItems,
+
   } = props;
 
   const styles = {
@@ -33,11 +38,30 @@ const Grid = (props) => {
     borderRadius,
     position,
     justifyContent,
+
+    is_post_box,
+    is_category_box,
+
     boxSizing,
     borderStyle,
     alignItems,
+
   };
 
+  if (is_post_box) {
+    return (
+      <PostGridBox {...styles} onClick={_onClick}>
+        {children}
+      </PostGridBox>
+    );
+  }
+  if (is_category_box) {
+    return (
+      <CategoryBox {...styles} onClick={_onClick}>
+        {children}
+      </CategoryBox>
+    );
+  }
   return (
     <>
       <GridBox {...styles} onClick={_onClick}>
@@ -85,5 +109,32 @@ const GridBox = styled.div`
   boxsizing: ${(props) => props.boxSizing};
   border-style: ${(props) => props.borderStyle};
   align-items: ${(props) => props.alignItems};
+
 `;
+
+const PostGridBox = styled.div`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) =>
+    props.is_flex
+      ? `display: flex; align-items: center; justify-content: space-between; `
+      : ''}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+`;
+
+const CategoryBox = styled.div`
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) =>
+    props.is_flex
+      ? `display: flex; align-items: center; justify-content: space-evenly; `
+      : ''}
+`;
+
 export default Grid;
