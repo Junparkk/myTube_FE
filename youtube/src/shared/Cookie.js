@@ -28,7 +28,7 @@ const setCookie = (name, value, exp = 5) => {
 
 // 만료일을 예전으로 설정해 쿠키를 지웁니다.
 const deleteCookie = (name) => {
-  document.cookie = name + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;";
+  document.cookie = name + '=; expires=Thu, 01 Jan 1999 00:00:10 GMT;';
 };
 
 export { setCookie, deleteCookie };
