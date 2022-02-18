@@ -14,13 +14,17 @@ const Grid = (props) => {
     left,
     borderBottom,
     is_flex_start,
-    // justifyCenter,
-    // justifyRight,
     borderRadius,
     position,
     justifyContent,
+
     is_post_box,
     is_category_box,
+
+    boxSizing,
+    borderStyle,
+    alignItems,
+
   } = props;
 
   const styles = {
@@ -31,13 +35,17 @@ const Grid = (props) => {
     margin,
     bg,
     borderBottom,
-    // justifyCenter,
-    // justifyRight,
     borderRadius,
     position,
     justifyContent,
+
     is_post_box,
     is_category_box,
+
+    boxSizing,
+    borderStyle,
+    alignItems,
+
   };
 
   if (is_post_box) {
@@ -81,6 +89,7 @@ Grid.defaultProps = {
 
 const GridBox = styled.div`
   box-sizing: border-box;
+
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
@@ -97,6 +106,10 @@ const GridBox = styled.div`
   ${(props) => (props.borderRadius ? `border-radius: 10px` : '')}
   position: ${(props) => props.position};
   justify-content: ${(props) => props.justifyContent};
+  boxsizing: ${(props) => props.boxSizing};
+  border-style: ${(props) => props.borderStyle};
+  align-items: ${(props) => props.alignItems};
+
 `;
 
 const PostGridBox = styled.div`
