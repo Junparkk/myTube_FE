@@ -4,13 +4,22 @@ import { Button, Grid, Input } from '../elements';
 const Video = (props) => {
   return (
     <section>
-      <iframe
-        src={`https://www.youtube.com/embed/4OtkJ3X_gAQ`}
+      <video
+        // src={`https://www.youtube.com/embed/4OtkJ3X_gAQ`}
+
         width="100%"
         height="800px"
         frameBorder="0"
-        allowFullScreen
-      ></iframe>
+        // allowFullScreen
+        controls
+        autoPlay="autoplay"
+        muted="muted"
+      >
+        <source
+          src={`https://response-mz-0.s3.ap-northeast-2.amazonaws.com/original/1645201205383KakaoTalk_20220219_011720432.mp4`}
+          type="video/mp4"
+        />
+      </video>
       <Grid>
         <h1 style={{ color: 'white' }}>제목</h1>
       </Grid>
@@ -33,10 +42,11 @@ const Video = (props) => {
         <Grid>
           <h1 style={{ color: 'white' }}>채널명</h1>
           <h3 style={{ color: 'white' }}>구독자 123만명</h3>
+
+          <pre style={{ color: 'gray' }}>더보기</pre>
         </Grid>
         <Button width="100px">구독</Button>
       </Grid>
-      <pre>설명</pre>
     </section>
   );
 };

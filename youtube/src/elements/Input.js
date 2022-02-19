@@ -1,6 +1,6 @@
-import React from "react";
-import styled, { withTheme } from "styled-components";
-import { Text } from ".";
+import React from 'react';
+import styled, { withTheme } from 'styled-components';
+import { Text } from '.';
 
 const Input = (props) => {
   const {
@@ -21,11 +21,13 @@ const Input = (props) => {
     _onKeyDown,
     _ref,
     _onFocus,
+    borderStyle,
   } = props;
 
   const styles = {
     width,
     bg,
+    borderStyle,
   };
 
   return (
@@ -49,24 +51,25 @@ const Input = (props) => {
 Input.defaultProps = {
   multiLine: false,
   label: false,
-  placeholder: "텍스트를 입력해주세요.",
-  type: "text",
-  width: "100%",
+  placeholder: '텍스트를 입력해주세요.',
+  type: 'text',
+  width: '100%',
   _onChange: () => {},
   _onClick: () => {},
   disable: false,
-  bg: "white",
+  bg: '#181818',
   _onKeyDown: () => {},
   _ref: () => {},
   _onFocus: () => {},
 };
 const ElInput = styled.input`
-  border: 1px solid #000000;
+  border:   border: '1px solid #adb5bd;
   width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
   border: 2px solid #9dcabf;
   border-radius: 5px;
   background-color: ${(props) => props.bg};
+  border-style: ${(props) => props.borderStyle};
 `;
 export default Input;

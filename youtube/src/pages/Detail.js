@@ -13,12 +13,16 @@ const Detail = () => {
       <Grid bg="#181818" height="100%" is_flex alignItems="flex-start">
         <Grid width="65%" padding="20px">
           <Video />
+          <CommentWrite />
+          <CommentList />
+          <CommentList />
+          <CommentList />
+          <CommentList />
+          <CommentList />
+          <CommentList />
         </Grid>
         <PlayList>
           <CategoryBar />
-          <VideoList />
-          <VideoList />
-          <VideoList />
           <VideoList />
           <VideoList />
           <VideoList />
