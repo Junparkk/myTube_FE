@@ -1,6 +1,6 @@
-import React from "react";
-import styled, { withTheme } from "styled-components";
-import { Text } from ".";
+import React from 'react';
+import styled, { withTheme } from 'styled-components';
+import { Text } from '.';
 
 const Input = (props) => {
   const {
@@ -49,13 +49,13 @@ const Input = (props) => {
 Input.defaultProps = {
   multiLine: false,
   label: false,
-  placeholder: "텍스트를 입력해주세요.",
-  type: "text",
-  width: "100%",
+  placeholder: '텍스트를 입력해주세요.',
+  type: 'text',
+  width: '100%',
   _onChange: () => {},
   _onClick: () => {},
   disable: false,
-  bg: "white",
+  bg: 'white',
   _onKeyDown: () => {},
   _ref: () => {},
   _onFocus: () => {},

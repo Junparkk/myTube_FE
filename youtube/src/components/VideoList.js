@@ -19,7 +19,6 @@ const VideoList = () => {
       </Grid>
     </Grid>
   );
-
 };
 
 export default VideoList;
