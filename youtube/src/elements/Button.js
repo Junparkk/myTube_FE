@@ -15,6 +15,7 @@ const Button = (props) => {
     cursor,
     borderRadius,
     position,
+    fontSize,
   } = props;
 
   const styles = {
@@ -26,6 +27,7 @@ const Button = (props) => {
     cursor,
     borderRadius,
     position,
+    fontSize,
   };
 
   return (
@@ -49,20 +51,22 @@ Button.defaultProps = {
   cursor: 'pointer',
   bg: '#000000',
   borderRadius: '5px',
-  postion: false,
+  position: false,
+  fontSize: null,
 };
 
 const ElButton = styled.button`
   box-sizing: border-box;
   border: none;
   border-radius: ${(props) => props.borderRadius};
-  width: ${(props) => props.width};
+  ${(props) => (props.width ? `width:${props.width};` : '')};
   background-color: ${(props) => props.bg};
   color: ${(props) => props.color};
   padding: ${(props) => props.padding};
   ${(props) => (props.margin ? `margin:${props.margin};` : '')};
   cursor: ${(props) => props.cursor};
   position: ${(props) => props.position};
+  ${(props) => (props.fontSize ? `font-size:${props.fontSize};` : '')};
 `;
 
 export default Button;

@@ -16,7 +16,7 @@ function App() {
     <>
       <Header></Header>
       <ConnectedRouter history={history}>
-        <Route path="/" exact component={Detail}></Route>
+        <Route path="/" exact component={Main}></Route>
         <Route path="/login" exact component={Login}></Route>
         <Route path="/signup" exact component={Signup}></Route>
         <Route path="/write" exact component={Write}></Route>
