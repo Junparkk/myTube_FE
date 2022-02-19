@@ -13,6 +13,7 @@ const Grid = (props) => {
     height,
     left,
     borderBottom,
+    borderTop,
     is_flex_start,
     borderRadius,
     position,
@@ -24,7 +25,7 @@ const Grid = (props) => {
     boxSizing,
     borderStyle,
     alignItems,
-
+    flexWrap,
   } = props;
 
   const styles = {
@@ -35,6 +36,7 @@ const Grid = (props) => {
     margin,
     bg,
     borderBottom,
+    borderTop,
     borderRadius,
     position,
     justifyContent,
@@ -45,7 +47,7 @@ const Grid = (props) => {
     boxSizing,
     borderStyle,
     alignItems,
-
+    flexWrap,
   };
 
   if (is_post_box) {
@@ -72,7 +74,7 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
-  chidren: null,
+  children: null,
   is_flex: false,
   width: '100%',
   height: '100%',
@@ -80,11 +82,13 @@ Grid.defaultProps = {
   margin: false,
   bg: false,
   borderBottom: false,
+  borderTop: false,
   // justifyCenter: false,
   // justifyRight: false,
   borderRadius: false,
   position: false,
   justifyContent: 'space-between',
+  flexWrap: null,
 };
 
 const GridBox = styled.div`
@@ -109,7 +113,6 @@ const GridBox = styled.div`
   boxsizing: ${(props) => props.boxSizing};
   border-style: ${(props) => props.borderStyle};
   align-items: ${(props) => props.alignItems};
-
 `;
 
 const PostGridBox = styled.div`
@@ -118,11 +121,8 @@ const PostGridBox = styled.div`
   ${(props) => (props.padding ? `padding: ${props.padding};` : '')}
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
-  ${(props) =>
-    props.is_flex
-      ? `display: flex; align-items: center; justify-content: space-between; `
-      : ''}
-  ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
+  ${(props) => (props.is_flex ? `display: flex; align-items: center; ` : '')}
+  ${(props) => (props.flexWrap ? `flex-wrap: ${props.flexWrap};` : '')}
 `;
 
 const CategoryBox = styled.div`
@@ -133,8 +133,11 @@ const CategoryBox = styled.div`
   ${(props) => (props.bg ? `background-color: ${props.bg};` : '')}
   ${(props) =>
     props.is_flex
-      ? `display: flex; align-items: center; justify-content: space-evenly; `
+      ? `display: flex; align-items: center; justify-content: center; `
       : ''}
+  ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : '')}
+  ${(props) =>
+    props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
 `;
 
 export default Grid;
