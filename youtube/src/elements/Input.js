@@ -65,7 +65,7 @@ const ElInput = styled.input`
   width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
-  border: 2px solid #9dcabf;
+  border: 1px solid #adb5bd;
   border-radius: 5px;
   background-color: ${(props) => props.bg};
 `;

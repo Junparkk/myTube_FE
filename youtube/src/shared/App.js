@@ -21,7 +21,7 @@ function App() {
         <Route path="/signup" exact component={Signup}></Route>
         <Route path="/write" exact component={Write}></Route>
         <Route path="/write/:postId" exact component={Write}></Route>
-        <Route path="/deatil/:postId" exact component={Detail}></Route>
+        <Route path="/detail/:postId" exact component={Detail}></Route>
       </ConnectedRouter>
     </>
   );
