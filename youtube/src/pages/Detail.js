@@ -15,11 +15,6 @@ const Detail = () => {
           <Video />
           <CommentWrite />
           <CommentList />
-          <CommentList />
-          <CommentList />
-          <CommentList />
-          <CommentList />
-          <CommentList />
         </Grid>
         <PlayList>
           <CategoryBar />
