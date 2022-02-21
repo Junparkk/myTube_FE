@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { BiImageAdd } from 'react-icons/bi';
 
 import DropDown from '../components/DropDown';
+import { current } from 'immer';
 
 const Write = (props) => {
-  console.log(props);
   //입력값 받아내기
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState();
@@ -21,13 +21,13 @@ const Write = (props) => {
   const changeTitle = (e) => {
     setTitle(e.target.value);
   };
-
+  console.log(category, '제발');
   const changeContent = (e) => {
     setContent(e.target.value);
   };
-  const changeCategory = (e) => {
-    setCategory(e.target.value);
-  };
+  // const changeCategory = (e) => {
+  //   setCategory(e.target.value);
+  // };
 
   const saveFileImage = (e) => {
     const img = e.target.files[0];
@@ -39,6 +39,15 @@ const Write = (props) => {
     setFileImage(URL.createObjectURL(e.target.files[0]));
   };
   console.log(fileImage);
+  const saveFileVideo = (e) => {
+    const video = e.target.files[0];
+    const formData = new FormData();
+    formData.append('videoUrl', video);
+    console.log('formDate', formData); // FormData {}
+    for (const keyValue of formData) console.log(keyValue);
+    // dispatch(postActions.imageAPI(formData));
+    setFileVideo(URL.createObjectURL(e.target.files[0]));
+  };
   return (
     <>
       <Wrap>
@@ -105,7 +114,7 @@ const Write = (props) => {
                 padding=".7rem 0"
               >
                 <label
-                  htmlFor="input_file"
+                  htmlFor="input_img"
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
@@ -121,7 +130,7 @@ const Write = (props) => {
                   미리보기 이미지 업로드
                 </label>
                 <FileInput
-                  id="input_file"
+                  id="input_img"
                   type="file"
                   accept=".png , .jpg , .png, .jpeg"
                   onChange={saveFileImage}
@@ -152,7 +161,7 @@ const Write = (props) => {
               쉬워집니다.
               <span>자세히 알아보기</span>
             </Text>
-            <DropDown></DropDown>
+            <DropDown setCategory={setCategory}></DropDown>
           </Container>
 
           {/* 시청자층 기능 없음 */}
@@ -176,7 +185,7 @@ const Write = (props) => {
         <Container className="right" width="100%">
           <Container flexDirection="column">
             <Container>
-              <Video></Video>
+              <Video src={fileVideo}></Video>
             </Container>
             <Container flexDirection="column">
               <Text size=".7rem">동영상 링크</Text>
@@ -202,7 +211,12 @@ const Write = (props) => {
               >
                 업로드
               </label>
-              <FileInput id="input_file" type="file" accept=".mp4"></FileInput>
+              <FileInput
+                id="input_file"
+                type="file"
+                accept=".mp4"
+                onChange={saveFileVideo}
+              ></FileInput>
             </Container>
           </Container>
         </Container>

@@ -10,7 +10,6 @@ const PostCard = (props) => {
   };
   //마우스 아웃시 동영상 정지
   const handleOnMouseOut = (e) => {
-    e.currentTarget.pause();
     e.currentTarget.load();
   };
 
@@ -25,7 +24,6 @@ const PostCard = (props) => {
             <video
               ref={test}
               style={{ width: '100%', height: 'auto' }}
-              preload="none"
               loop
               muted
               poster={props.imageUrl}

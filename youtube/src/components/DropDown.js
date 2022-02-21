@@ -4,7 +4,9 @@ import styled from 'styled-components';
 
 const DropDown = (props) => {
   const [choice, setChoice] = React.useState('선택');
-  console.log(choice);
+  React.useEffect(() => {
+    props.setCategory(choice);
+  }, [choice]);
 
   const setFilter = (num) => {
     setChoice(
