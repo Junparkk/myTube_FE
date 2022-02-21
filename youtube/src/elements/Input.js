@@ -69,7 +69,6 @@ Input.defaultProps = {
   color: false,
 };
 const ElInput = styled.input`
-  border: 1px solid #adb5bd;
   width: ${(props) => props.width};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
   ${(props) => (props.color ? `color: ${props.color};` : '')}

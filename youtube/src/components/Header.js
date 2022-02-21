@@ -14,7 +14,6 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 import Modal from './Modal';
-
 const Header = (props) => {
   //모달 창
   let [modalopen, setModalopen] = useState(false);
@@ -37,7 +36,6 @@ const Header = (props) => {
         <Modal
           open={modalopen}
           close={closeModal}
-          header="참여인원"
           // value={post && post.curMembers}
         ></Modal>
 

@@ -18,41 +18,46 @@ const Login = () => {
       >
         <Logo src={GoogleLogo} />
       </LogoLink>
-        <SignInText>로그인</SignInText>
+        <LogInText>로그인</LogInText>
+        <GoMytubeText>Mytube로 이동</GoMytubeText>
 
       <Grid padding="0px 10%" 
         margin= "10px 0px 5px 0px" height="13%">
 
-        <Input width="80%"
+        <Input width="80%" bg="#fff"
           label=""
           placeholder="이메일을 입력해주세요."
         />
       </Grid>
 
-            <Grid padding="0px 10%"
-            margin= "10px 0px 5px 0px" height="13%">
-              <Input width="80%"
-                label=""
-                placeholder="비밀번호를 입력해주세요."
-                type="password"
-              />
-            </Grid>
+      <Grid padding="0px 10%"
+        margin= "10px 0px 5px 0px" height="13%">
+        <Input width="80%" bg="#fff"
+          label=""
+          placeholder="비밀번호를 입력해주세요."
+          type="password"
+        />
+      </Grid>
 
-            <Grid is_flex>
-              <GoSignUp
-                onClick={() => {
-                  history.push("/signup");
-                }}
-              >
-                계정 만들기
-              </GoSignUp>
+      <ForgetMailText>이메일을 잊으셨나요?</ForgetMailText>
+            
+      <NotMyComText>내 컴퓨터가 아닌가요? 게스트 모드를 사용하여 비공개로 로그인하세요. 자세히 알아보기</NotMyComText>
+
+      <Grid is_flex>
+        <GoSignUp
+          onClick={() => {
+            history.push("/signup");
+        }}
+        >
+          계정 만들기
+        </GoSignUp>
               
-              <LoginButton onClick={() => {
-                  history.push("/");
-                }}
-              >로그인 하기</LoginButton>
-            </Grid>
-          </LoginWrap>
+        <LoginButton onClick={() => {
+          history.push("/");
+        }}
+        >로그인 하기</LoginButton>
+      </Grid>
+    </LoginWrap>
     </>
   );
 };
@@ -62,9 +67,12 @@ const LoginWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #adb5bd
-  width: 100%;
+  box-sizing: border-box;
+  margin: auto;
+  margin-top: 100px;
+  width: 50%;
   height: 600px;
+  border: 1px solid #adb5bd
 `;
 
 const Logo = styled.img`
@@ -79,31 +87,45 @@ const LogoLink = styled.button`
   cursor: pointer;
 `;
 
-const SignInText = styled.div`
+const LogInText = styled.div`
   font-size: 30px;
   margin: auto;
 `;
 
-const GoSignUp = styled.div`
-  border: none;
-  background-color: none;
-  color: #1a73e8;
-  cursor: pointer;
+const GoMytubeText = styled.div`
   font-size: 20px;
-  margin-top: 20px;
-  padding: 0px 0px 0px 3%;
-  height: 3px;
+  margin: auto;
+`;
+
+const ForgetMailText = styled.div`
+  font-size: 20px;
+  margin: auto;
+  color: #1a73e8;
+`;
+
+const NotMyComText = styled.div`
+  font-size: 15px;
+  margin: 7%;
+`;
+
+const GoSignUp = styled.div`
+border: none;
+background-color: #fff;
+color: #1a73e8;
+cursor: pointer;
+font-size: 20px;
+margin: auto;
 `;
 
 const LoginButton = styled.button`
   border: none;
-  background-color: #fff;
-  color: #1a73e8;
+  border-radius: 5px;
+  background-color: #1a73e8;
+  color: #fff;
   cursor: pointer;
   font-size: 20px;
-  margin-top: 20px;
-  padding: 0px 0px 0px 3%;
-  height: 3px;
+  margin: auto;
+  padding: 10px 11px;
 `;
 
 export default Login;
