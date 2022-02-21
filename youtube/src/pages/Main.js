@@ -6,7 +6,7 @@ import { Grid } from '../elements';
 import Category from '../components/Category';
 import PostCard from '../components/PostCard';
 
-const Main = () => {
+const Main = (props) => {
   return (
     <>
       <Category />

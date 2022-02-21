@@ -32,7 +32,6 @@ const deleteComment = createAction(DELETE_COMMENT, (postId, commentId) => ({
   postId,
   commentId,
 }));
-
 const initialState = {
   list: {},
   is_loaded: false,
@@ -44,8 +43,6 @@ const getCommentDB = (postId) => {
     instance
       .get(`/api/posts/${postId}/comments`)
       .then((response) => {
-        console.log('response', response.data.comments);
-
         dispatch(setComment(postId, response.data.comments));
       })
       .catch((error) => {
@@ -62,7 +59,6 @@ const addCommentDB = (postId, comment) => {
     instance
       .post(`/api/posts/${postId}/comments`, comment)
       .then((response) => {
-        console.log('response', response);
         dispatch(addComment(comment));
       })
       .catch((error) => {
@@ -110,14 +106,17 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log('setComment', state, draft, action);
-        draft.list[action.payload.postId] =
-          action.payload.contentList.reverse();
+        draft.list[action.payload.postId] = action.payload.commentList;
+        console.log(
+          'setComment',
+          draft.list[action.payload.postId],
+          action.payload.commentList
+        );
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log('AddComment', state, draft, action.payload);
         draft.list[action.payload.postId].unshift(action.payload.comment);
+        console.log('AddComment', state, draft, action.payload);
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {

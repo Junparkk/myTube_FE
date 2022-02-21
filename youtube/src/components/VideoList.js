@@ -4,7 +4,7 @@ import { Button, Grid, Input, Text } from '../elements';
 
 import HoverVideoPlayer from 'react-hover-video-player';
 
-const VideoList = () => {
+const VideoList = (props) => {
   return (
     <Grid is_flex margin="10px">
       <Grid width="200px" height="100px" margin="10px">

@@ -68,6 +68,7 @@ const ImageCircle = styled.div`
   margin: 4px;
 
   ${(props) => (props.padding ? `margin:${props.padding};` : '')};
+  ${(props) => (props.src ? `src:${props.src};` : '')};
 `;
 
 export default Image;

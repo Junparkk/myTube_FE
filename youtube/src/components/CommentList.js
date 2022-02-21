@@ -7,32 +7,52 @@ import { actionCreators as commentsActions } from '../redux/modules/comments';
 
 import { HiOutlinePencil } from 'react-icons/hi';
 import { BsTrash } from 'react-icons/bs';
+
 const CommentList = (props) => {
   const dispatch = useDispatch();
-  const comment_list = useSelector((state) => state);
+  const comment_list = useSelector((state) => state.comments.list);
   const { postId } = props;
-  console.log('commentList', comment_list, postId, props);
-  // 댓글 작성자만 삭제 및 수정 가능하게
 
   React.useEffect(() => {
-    dispatch(commentsActions.getCommentDB('621195dc8fa68aed4d558fc1'));
+    dispatch(commentsActions.getCommentDB(postId));
   }, []);
+  if (!comment_list[postId]) {
+    return null;
+  }
+  return (
+    <>
+      <Grid>
+        {comment_list[postId].map((c, i) => {
+          return <CommentItem postId={postId} key={i} {...c} />;
+        })}
+      </Grid>
+    </>
+  );
+};
+
+export default CommentList;
+
+const CommentItem = (props) => {
+  const dispatch = useDispatch();
+  const { postId, key } = props;
+  const comment_list = useSelector((state) => state.comments.list[postId]);
+
   return (
     <>
       <Grid is_flex padding="10px" alignItems="flex-start">
         {/* Profile */}
-        <Image shape="circle" size="50" />
+        <Image shape="circle" size="50" src={props.profile} />
         <Grid>
           <Grid is_flex justifyContent="left" height="10px" margin="0px">
             <Text width="50px" color="#000" padding="0px" margin="0px">
-              아이디
+              {props.channelName}
             </Text>
             <Text width="100px" color="#999999" padding="0px" margin="0px">
               11시간 전
             </Text>
           </Grid>
           <Grid is_flex>
-            <Text color="#000">댓글이당!</Text>
+            <Text color="#000"> {props.comment} </Text>
             <Grid is_flex justifyContent="right">
               <Button
                 bg="#fff"
@@ -96,5 +116,3 @@ const CommentList = (props) => {
     </>
   );
 };
-
-export default CommentList;

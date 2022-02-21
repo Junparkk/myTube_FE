@@ -10,7 +10,7 @@ import { history } from '../redux/configureStore';
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const { postId } = props;
-  console.log(postId);
+  console.log('CommentWrite', postId);
   //댓글 쓰기
   const [comment, setComment] = React.useState('');
 
@@ -29,7 +29,7 @@ const CommentWrite = (props) => {
     let content = {
       comment: comment,
     };
-    dispatch(commentsActions.addCommentDB('621195dc8fa68aed4d558fc1', content));
+    dispatch(commentsActions.addCommentDB(postId, content));
     setComment('');
   };
   return (
