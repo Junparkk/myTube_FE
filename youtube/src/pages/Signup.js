@@ -19,54 +19,59 @@ const Signup = () => {
         <Logo src={GoogleLogo} />
       </LogoLink>
         <SignInText>Google 계정 만들기</SignInText>
+        <GoMytubeText>Mytube로 이동</GoMytubeText>
 
       <Grid padding="0px 10%" 
         margin= "10px 0px 5px 0px" height="13%">
-
-        <Input width="80%"
+        <Input width="80%" bg="#fff"
           label=""
-          placeholder="이메일을 입력해주세요."
+          placeholder="아이디"
         />
       </Grid>
 
-      <Grid padding="0px 10%" height="13%">
+      <ConfirmText>이 아이디가 본인 소유인지 확인해야 합니다.</ConfirmText>
+      <NewIdText>새로운 Gmail 아이디 만들기</NewIdText>
 
-        <Input width="80%"
+      <Grid padding="0px 10%" 
+        margin= "10px 0px 5px 0px" height="13%">
+        <Input width="80%" bg="#fff"
           label=""
-          placeholder="닉네임을 입력해주세요."
+          placeholder="닉네임"
         />
       </Grid>
 
-            <Grid padding="0px 10%" height="13%">
-              <Input width="80%"
-                label=""
-                placeholder="비밀번호를 입력해주세요."
-                type="password"
-              />
-            </Grid>
+      <Grid padding="0px 10%"
+        margin= "10px 0px 5px 0px" height="13%">
+        <Input width="80%" bg="#fff"
+          label=""
+          placeholder="비밀번호"
+          type="password"
+        />
+      </Grid>
 
-            <Grid padding="0px 10%" height="13%">
-              <Input width="80%"
-                label=""
-                placeholder="비밀번호를 다시 입력해주세요."
-                type="password"
-              />
-            </Grid>
+      <Grid padding="0px 10%" 
+        margin= "10px 0px 5px 0px" height="13%">
+        <Input width="80%" bg="#fff"
+          label=""
+          placeholder="확인"
+          type="password"
+        />
+      </Grid>
 
-            <Grid is_flex>              
-              <GoSignUp onClick={() => {
-                  history.push("/");
-                }}
-              >회원가입</GoSignUp>
-            </Grid>
+      <PwdText>문자, 숫자, 기호를 조합하여 8자 이상을 사용하세요</PwdText>
 
-            <Grid is_flex>              
-              <LoginButton onClick={() => {
-                  history.push("/login");
-                }}
-              >계정이 있으신가요? 로그인</LoginButton>
-            </Grid>
-          </LoginWrap>
+      <Grid is_flex>              
+        <GoLogin onClick={() => {
+          history.push("/login");
+        }}
+        >계정이 있으신가요? 로그인</GoLogin>
+            
+        <SuccessSignUp onClick={() => {
+          history.push("/");
+        }}
+        >회원가입</SuccessSignUp>
+      </Grid>
+    </LoginWrap>
     </>
   );
 };
@@ -76,9 +81,12 @@ const LoginWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #adb5bd
-  width: 100%;
+  box-sizing: border-box;
+  margin: auto;
+  margin-top: 100px;
+  width: 50%;
   height: 600px;
+  border: 1px solid #adb5bd
 `;
 
 const Logo = styled.img`
@@ -98,7 +106,40 @@ const SignInText = styled.div`
   margin: auto;
 `;
 
-const GoSignUp = styled.button`
+const GoMytubeText = styled.div`
+  font-size: 20px;
+  margin: auto;
+`;
+
+const ConfirmText = styled.div`
+  font-size: 15px;
+  margin: auto;
+  color: #adb5bd;
+`;
+
+const NewIdText = styled.div`
+  font-size: 17px;
+  margin-top: 10px;
+  background-color: #fff;
+  color: #1a73e8;
+  `;
+  
+  const PwdText = styled.div`
+  font-size: 15px;
+  margin: auto;
+  color: #adb5bd;
+`;
+
+const GoLogin = styled.button`
+  border: none;
+  background-color: #fff;
+  color: #1a73e8;
+  cursor: pointer;
+  font-size: 20px;
+  margin: auto;
+`;
+
+const SuccessSignUp = styled.button`
   border: none;
   border-radius: 5px;
   background-color: #1a73e8;
@@ -107,15 +148,6 @@ const GoSignUp = styled.button`
   font-size: 20px;
   margin: auto;
   padding: 10px 11px;
-`;
-
-const LoginButton = styled.button`
-  border: none;
-  background-color: #fff;
-  color: #1a73e8;
-  cursor: pointer;
-  font-size: 30px;
-  margin: auto;
 `;
 
 export default Signup;
