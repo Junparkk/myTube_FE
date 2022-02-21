@@ -67,6 +67,7 @@ Input.defaultProps = {
   _onFocus: () => {},
   margin: false,
 };
+
 const ElInput = styled.input`
   width: ${(props) => props.width};
   ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
