@@ -17,7 +17,7 @@ const CommentList = () => {
               11시간 전
             </Text>
           </Grid>
-          <Text color="ececec">댓글이당!</Text>
+          <Text color="#ececec">댓글이당!</Text>
           <Grid is_flex justifyContent="left">
             <Button
               bg="#fff"
