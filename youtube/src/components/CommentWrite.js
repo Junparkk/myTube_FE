@@ -3,7 +3,35 @@ import { Button, Grid, Input, Image, Text } from '../elements';
 
 import { MdOutlineSort } from 'react-icons/md';
 
-const CommentWrite = () => {
+import { useDispatch } from 'react-redux';
+import { actionCreators as commentsActions } from '../redux/modules/comments';
+import { history } from '../redux/configureStore';
+
+const CommentWrite = (props) => {
+  const dispatch = useDispatch();
+  const { postId } = props;
+  console.log(postId);
+  //댓글 쓰기
+  const [comment, setComment] = React.useState('');
+
+  const onChange = (e) => {
+    setComment(e.target.value);
+  };
+
+  const write = () => {
+    // if (loginUserId === null) {
+    //   window.alert(
+    //     "회원이 아닌 경우, 댓글 작성이 불가능합니다. 로그인 해주세요~!"
+    //   )
+    //   history.replace("/login")
+    //   return
+    // }
+    let content = {
+      comment: comment,
+    };
+    dispatch(commentsActions.addCommentDB('621195dc8fa68aed4d558fc1', content));
+    setComment('');
+  };
   return (
     <>
       <Grid is_flex justifyContent="left">
@@ -36,12 +64,14 @@ const CommentWrite = () => {
             bg="#fff"
             margin="10px 0px"
             color="#000"
+            value={comment}
+            _onChange={onChange}
           />
           <Grid is_flex justifyContent="right">
             <Button width="80px" bg="#fff" color="#aaaaaa">
               취소
             </Button>
-            <Button width="80px" bg="#ececec" color="#6d6d6d">
+            <Button width="80px" bg="#ececec" color="#6d6d6d" _onClick={write}>
               댓글
             </Button>
           </Grid>
