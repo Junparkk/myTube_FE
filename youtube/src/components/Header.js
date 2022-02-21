@@ -72,14 +72,14 @@ const Header = (props) => {
           </SearchIcon>
         </Grid>
 
-        <VidioIcon>
+        <VideoIcon>
           <BiVideoPlus
             size="50px"
             onClick={() => {
               history.push('/write');
             }}
           ></BiVideoPlus>
-        </VidioIcon>
+        </VideoIcon>
 
         <PadIcon>
           <BsGrid3X3Gap size="35px" />
@@ -129,7 +129,7 @@ const SearchIcon = styled.button`
   width: 6.5%;
 `;
 
-const VidioIcon = styled.button`
+const VideoIcon = styled.button`
   cursor: pointer;
   border: none;
   background-color: #fff;
