@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Grid, Button } from '../elements';
+import { Input, Grid } from '../elements';
 import styled from 'styled-components';
 import GoogleLogo from '../image/GoogleLogo.png';
 
@@ -8,6 +8,14 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import { history } from '../redux/configureStore';
 
 const Login = (props) => {
+  const dispatch = useDispatch();
+
+  const [userid, setUserId] = React.useState('');
+  const [pwd, setPwd] = React.useState('');
+
+  const Login = () => {
+    dispatch(userActions.loginDB(userid, pwd));
+  };
   return (
     <>
       <LoginWrap>
@@ -21,22 +29,30 @@ const Login = (props) => {
         <LogInText>로그인</LogInText>
         <GoMytubeText>Mytube로 이동</GoMytubeText>
 
-        <Grid padding="0px 10%" margin="10px 0px 5px 0px" height="13%">
+        <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
-            width="80%"
+            width="100%"
             bg="#fff"
             label=""
-            placeholder="이메일을 입력해주세요."
+            placeholder="아이디를 입력해주세요."
+            _onChange={(e) => {
+              setUserId(e.target.value);
+            }}
+            value={userid}
           />
         </Grid>
 
-        <Grid padding="0px 10%" margin="10px 0px 5px 0px" height="13%">
+        <Grid padding="0px 10%" margin="10px 0px 10px 0px" height="13%">
           <Input
-            width="80%"
+            width="100%"
             bg="#fff"
             label=""
             placeholder="비밀번호를 입력해주세요."
             type="password"
+            _onChange={(e) => {
+              setPwd(e.target.value);
+            }}
+            value={pwd}
           />
         </Grid>
 
@@ -56,13 +72,7 @@ const Login = (props) => {
             계정 만들기
           </GoSignUp>
 
-          <LoginButton
-            onClick={() => {
-              history.push('/');
-            }}
-          >
-            로그인 하기
-          </LoginButton>
+          <LoginButton _onClick={Login}>로그인 하기</LoginButton>
         </Grid>
       </LoginWrap>
     </>
@@ -72,13 +82,13 @@ const Login = (props) => {
 const LoginWrap = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   box-sizing: border-box;
   margin: auto;
-  margin-top: 100px;
+  margin-top: 50px;
   width: 50%;
-  height: 600px;
+  height: 750px;
+  border-radius: 5px;
   border: 1px solid #adb5bd;
 `;
 
@@ -88,31 +98,32 @@ const Logo = styled.img`
 `;
 
 const LogoLink = styled.button`
-  height: 100%;
   border: none;
   background-color: transparent;
   cursor: pointer;
 `;
 
 const LogInText = styled.div`
-  font-size: 30px;
-  margin: auto;
+  font-size: 24px;
 `;
 
 const GoMytubeText = styled.div`
-  font-size: 20px;
+  font-size: 16px;
   margin: auto;
+  padding: 5px 0px 8% 0px;
 `;
 
 const ForgetMailText = styled.div`
-  font-size: 20px;
-  margin: auto;
+  font-size: 16px;
+  margin: auto 0px;
+  padding: 5px 0px 0px 0px;
   color: #1a73e8;
 `;
 
 const NotMyComText = styled.div`
   font-size: 15px;
-  margin: 7%;
+  margin: 10%;
+  color: #5f6368;
 `;
 
 const GoSignUp = styled.div`
@@ -120,8 +131,8 @@ const GoSignUp = styled.div`
   background-color: #fff;
   color: #1a73e8;
   cursor: pointer;
-  font-size: 20px;
-  margin: auto;
+  font-size: 16px;
+  margin: 0px 80px;
 `;
 
 const LoginButton = styled.button`
@@ -130,8 +141,8 @@ const LoginButton = styled.button`
   background-color: #1a73e8;
   color: #fff;
   cursor: pointer;
-  font-size: 20px;
-  margin: auto;
+  font-size: 16px;
+  margin: 0px 80px;
   padding: 10px 11px;
 `;
 

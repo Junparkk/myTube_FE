@@ -5,7 +5,49 @@ import styled from 'styled-components';
 import { BiImageAdd } from 'react-icons/bi';
 
 import DropDown from '../components/DropDown';
-const Write = () => {
+import { current } from 'immer';
+
+const Write = (props) => {
+  //입력값 받아내기
+  const [title, setTitle] = React.useState('');
+  const [content, setContent] = React.useState();
+  const [category, setCategory] = React.useState();
+  const [fileImage, setFileImage] = React.useState(
+    'https://user-images.githubusercontent.com/82128525/154899930-6333a730-9e2c-4123-a3b7-760d9e61b43f.png'
+  );
+  const [fileVideo, setFileVideo] = React.useState(
+    'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png'
+  );
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
+  };
+  console.log(category, '제발');
+  const changeContent = (e) => {
+    setContent(e.target.value);
+  };
+  // const changeCategory = (e) => {
+  //   setCategory(e.target.value);
+  // };
+
+  const saveFileImage = (e) => {
+    const img = e.target.files[0];
+    const formData = new FormData();
+    formData.append('imgUrl', img);
+    console.log('formDate', formData); // FormData {}
+    for (const keyValue of formData) console.log(keyValue);
+    // dispatch(postActions.imageAPI(formData));
+    setFileImage(URL.createObjectURL(e.target.files[0]));
+  };
+  console.log(fileImage);
+  const saveFileVideo = (e) => {
+    const video = e.target.files[0];
+    const formData = new FormData();
+    formData.append('videoUrl', video);
+    console.log('formDate', formData); // FormData {}
+    for (const keyValue of formData) console.log(keyValue);
+    // dispatch(postActions.imageAPI(formData));
+    setFileVideo(URL.createObjectURL(e.target.files[0]));
+  };
   return (
     <>
       <Wrap>
@@ -34,6 +76,7 @@ const Write = () => {
                 type="text"
                 maxLength="20"
                 placeholder="동영상을 설명하는 제목을 추가하세요"
+                onChange={changeTitle}
               ></Input>
             </Container>
             <Container
@@ -47,6 +90,7 @@ const Write = () => {
               <Textarea
                 rows="5"
                 placeholder="시청자에게 동영상에 대해 알려주세요"
+                onChange={changeContent}
               ></Textarea>
             </Container>
           </Container>
@@ -60,17 +104,53 @@ const Write = () => {
               시선을 사로잡을만한 이미지를 사용해 보세요.
               <span>자세히 알아보기</span>
             </Text>
-            <Container
-              width="6rem"
-              flexDirection="column"
-              alignItems="center"
-              border="1px solid #a0a0a0"
-              padding=".7rem 0"
-            >
-              <BiImageAdd size="1rem" />
-              <Text size=".5rem">미리보기 이미지 업로드</Text>
+            <Container>
+              <Container
+                width="6rem"
+                height="2rem"
+                flexDirection="column"
+                alignItems="center"
+                border="1px solid #a0a0a0"
+                padding=".7rem 0"
+              >
+                <label
+                  htmlFor="input_img"
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '6rem',
+                    fontSize: '.4rem',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    marginTop: '2px',
+                  }}
+                >
+                  <BiImageAdd size="1rem" />
+                  미리보기 이미지 업로드
+                </label>
+                <FileInput
+                  id="input_img"
+                  type="file"
+                  accept=".png , .jpg , .png, .jpeg"
+                  onChange={saveFileImage}
+                ></FileInput>
+              </Container>
+              <Container
+                width="6rem"
+                height="2rem"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                border="1px solid #a0a0a0"
+                padding=".7rem 0"
+                margin="0 0 0 5px"
+              >
+                <img width="100%" height="100%" src={fileImage} alt="" />
+              </Container>
             </Container>
           </Container>
+
           {/* 카테고리 */}
           <Container flexDirection="column" margin="5px 0 0 0">
             <Text mBottom="5px" size=".7rem">
@@ -81,8 +161,9 @@ const Write = () => {
               쉬워집니다.
               <span>자세히 알아보기</span>
             </Text>
-            <DropDown></DropDown>
+            <DropDown setCategory={setCategory}></DropDown>
           </Container>
+
           {/* 시청자층 기능 없음 */}
           <Container flexDirection="column" margin="5px 0 0 0">
             <Text mBottom="5px" size=".7rem">
@@ -104,7 +185,7 @@ const Write = () => {
         <Container className="right" width="100%">
           <Container flexDirection="column">
             <Container>
-              <Video></Video>
+              <Video src={fileVideo}></Video>
             </Container>
             <Container flexDirection="column">
               <Text size=".7rem">동영상 링크</Text>
@@ -130,7 +211,12 @@ const Write = () => {
               >
                 업로드
               </label>
-              <FileInput id="input_file" type="file" accept=".mp4"></FileInput>
+              <FileInput
+                id="input_file"
+                type="file"
+                accept=".mp4"
+                onChange={saveFileVideo}
+              ></FileInput>
             </Container>
           </Container>
         </Container>
@@ -160,6 +246,7 @@ const Wrap = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
+
 const Container = styled.div`
   display: flex;
   width: ${(props) => props.width};
