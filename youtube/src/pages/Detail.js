@@ -10,8 +10,8 @@ import styled from 'styled-components';
 const Detail = () => {
   return (
     <>
-      <Grid bg="#181818" height="100%" is_flex alignItems="flex-start">
-        <Grid width="65%" padding="20px">
+      <Grid bg="white" height="100%" is_flex alignItems="flex-start">
+        <Grid width="72%" padding="20px">
           <Video />
           <CommentWrite />
           <CommentList />
@@ -39,7 +39,7 @@ const Detail = () => {
 const PlayList = styled.div`
   // align-items: center;
   justify-content: left;
-  width: 35%;
+  width: 28%;
   vertical-align: top;
   @media screen and (max-width: 1000px) {
     display: none;

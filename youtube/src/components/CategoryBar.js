@@ -27,7 +27,7 @@ const CategoryCircle = styled.p`
   margin: 10px;
   font-size: 17px;
   padding: 5px 15px;
-  color: #000;
+
   background-color: #303030;
   border-radius: 30px;
   //   @media only screen and (max-width: 768px) {
@@ -35,6 +35,7 @@ const CategoryCircle = styled.p`
   //     font-size: 14px;
   //   }
   cursor: pointer;
+  color: #ffffff;
 `;
 
 export default CategoryBar;

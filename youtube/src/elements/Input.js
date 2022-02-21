@@ -22,12 +22,16 @@ const Input = (props) => {
     _ref,
     _onFocus,
     borderStyle,
+    margin,
+    color,
   } = props;
 
   const styles = {
     width,
     bg,
     borderStyle,
+    margin,
+    color,
   };
 
   return (
@@ -61,14 +65,18 @@ Input.defaultProps = {
   _onKeyDown: () => {},
   _ref: () => {},
   _onFocus: () => {},
+  margin: false,
+  color: false,
 };
 const ElInput = styled.input`
-  border:   border: '1px solid #adb5bd;
+  border: 1px solid #adb5bd;
   width: ${(props) => props.width};
+  ${(props) => (props.margin ? `margin: ${props.margin};` : '')}
+  ${(props) => (props.color ? `color: ${props.color};` : '')}
   padding: 12px 4px;
   box-sizing: border-box;
   border: 1px solid #adb5bd;
-  border-radius: 5px;
+  // border-radius: 5px;
   background-color: ${(props) => props.bg};
   border-style: ${(props) => props.borderStyle};
 `;

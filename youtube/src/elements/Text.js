@@ -13,6 +13,8 @@ const Text = (props) => {
     is_break,
     alignCenter,
     font,
+    width,
+    justifyContent,
   } = props;
 
   const styles = {
@@ -25,6 +27,7 @@ const Text = (props) => {
     is_break,
     alignCenter,
     font,
+    width,
   };
   return (
     <>
@@ -43,9 +46,11 @@ Text.defaultProps = {
   weight: false,
   is_break: false,
   alignCenter: false,
+  width: '100%',
 };
 
 const P = styled.p`
+  width: ${(props) => props.width};
   color: ${(props) => props.color};
   font-size: ${(props) => props.size};
   font-weight: ${(props) =>
@@ -55,6 +60,7 @@ const P = styled.p`
   ${(props) => (props.is_break ? `word-break: break-all;` : '')}
   ${(props) => (props.alignCenter ? `text-align: center;` : '')}
   ${(props) => (props.font ? `font-family: ${props.font};` : '')}
+  justify-content: ${(props) => props.justifyContent};
 `;
 
 export default Text;

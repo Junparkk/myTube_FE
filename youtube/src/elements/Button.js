@@ -16,6 +16,8 @@ const Button = (props) => {
     borderRadius,
     position,
     fontSize,
+    alignItems,
+    display,
   } = props;
 
   const styles = {
@@ -28,6 +30,8 @@ const Button = (props) => {
     borderRadius,
     position,
     fontSize,
+    alignItems,
+    display,
   };
 
   return (
@@ -67,6 +71,8 @@ const ElButton = styled.button`
   cursor: ${(props) => props.cursor};
   position: ${(props) => props.position};
   ${(props) => (props.fontSize ? `font-size:${props.fontSize};` : '')};
+  align-items: ${(props) => props.alignItems};
+  ${(props) => (props.display ? `display: ${props.display}; ` : '')}
 `;
 
 export default Button;

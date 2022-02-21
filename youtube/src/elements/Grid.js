@@ -105,6 +105,7 @@ const GridBox = styled.div`
       : ''}
   ${(props) =>
     props.borderBottom ? `border-bottom: ${props.borderBottom};` : ''}
+    ${(props) => (props.borderTop ? `border-top: ${props.borderTop};` : '')}
   // ${(props) => (props.justifyCenter ? `justify-content: center` : '')}
   // ${(props) => (props.justifyRight ? `justify-content: right` : '')}
   ${(props) => (props.borderRadius ? `border-radius: 10px` : '')}
