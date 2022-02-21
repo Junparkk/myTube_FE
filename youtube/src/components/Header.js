@@ -2,11 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Grid, Input } from '../elements';
 
-import MainLogo from '../image/MainLogo.png';
-import { BiVideoPlus } from 'react-icons/bi';
-import { BiSearch } from 'react-icons/bi';
-import { FaBars } from 'react-icons/fa';
-import { BsPersonCircle } from 'react-icons/bs';
+
+import MainLogo from "../image/MainLogo.png";
+import { FaBars } from "react-icons/fa";
+import { FaKeyboard } from "react-icons/fa";
+import { BiSearch } from "react-icons/bi";
+import { BiVideoPlus } from "react-icons/bi";
+import { BsGrid3X3Gap } from "react-icons/bs";
+import { BsBell } from "react-icons/bs";
+import { BsPersonCircle } from "react-icons/bs";
+
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -40,7 +45,11 @@ const Header = (props) => {
         </Grid>
 
         <Grid is_flex justifyContent="center">
-          <Input width="80%"></Input>
+          <Input width="80%" bg="#fff"></Input>
+
+            <KeyboardIcon>
+              <FaKeyboard size="40px" />
+            </KeyboardIcon>
 
           <SearchIcon>
             <BiSearch
@@ -60,6 +69,14 @@ const Header = (props) => {
             }}
           ></BiVideoPlus>
         </VidioIcon>
+        
+        <PadIcon>
+          <BsGrid3X3Gap size="35px" />
+        </PadIcon>
+
+        <BellIcon>
+          <BsBell size="35px" />
+        </BellIcon>
 
         <LoginIcon>
           <BsPersonCircle
@@ -83,6 +100,15 @@ const LeftIcon = styled.button`
   width: 5%;
 `;
 
+const KeyboardIcon = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  justifyContent: right;
+  width: 5%;
+`;
+
 const SearchIcon = styled.button`
   cursor: pointer;
   border: none;
@@ -97,8 +123,27 @@ const VidioIcon = styled.button`
   border: none;
   background-color: #fff;
   display: flex;
-  justifycontent: right;
-  width: 8%;
+  justifyContent: right;
+  width: 6.5%;
+`;
+
+const PadIcon = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  justifyContent: right;
+  width: 5%;
+`;
+
+const BellIcon = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  justifyContent: right;
+  width: 5%;
+
 `;
 
 const LoginIcon = styled.button`

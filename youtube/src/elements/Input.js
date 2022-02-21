@@ -63,7 +63,6 @@ Input.defaultProps = {
   _onFocus: () => {},
 };
 const ElInput = styled.input`
-  border: 1px solid #adb5bd;
   width: ${(props) => props.width};
   padding: 12px 4px;
   box-sizing: border-box;
