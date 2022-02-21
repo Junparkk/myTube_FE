@@ -26,7 +26,7 @@ const VideoList = () => {
                 height: '100%',
                 objectFit: 'fill',
               }}
-              sizingMode="container"
+              // sizingMode="container"
             />
           }
         />

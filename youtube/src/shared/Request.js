@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: "http://ip",
+  baseURL: 'http://54.180.137.157/',
   timeout: 1000,
-  headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+  headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
 });
 
 // instance.defaults.headers.common["Authorization"] =
