@@ -35,6 +35,7 @@ const Signup = () => {
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="아이디"
@@ -50,6 +51,7 @@ const Signup = () => {
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="채널명"
@@ -62,6 +64,7 @@ const Signup = () => {
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="비밀번호"
@@ -75,6 +78,7 @@ const Signup = () => {
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="확인"
@@ -110,11 +114,16 @@ const SignupWrap = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: auto;
-  margin-top: 50px;
-  width: 50%;
-  height: 750px;
+  margin-top: 45px;
+  width: 600px;
+  height: 730px;
   border-radius: 5px;
   border: 1px solid #adb5bd;
+  @media (min-width: 601px) {
+    padding: 48px 40px 36px 40px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
 `;
 
 const Logo = styled.img`
@@ -123,7 +132,6 @@ const Logo = styled.img`
 `;
 
 const LogoLink = styled.button`
-  height: 100%;
   border: none;
   background-color: transparent;
   cursor: pointer;

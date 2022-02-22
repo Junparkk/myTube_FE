@@ -22,6 +22,7 @@ const Input = (props) => {
     _ref,
     _onFocus,
     borderStyle,
+    borderRadius,
     margin,
     color,
   } = props;
@@ -32,6 +33,7 @@ const Input = (props) => {
     borderStyle,
     margin,
     color,
+    borderRadius,
   };
 
   return (
@@ -75,7 +77,7 @@ const ElInput = styled.input`
   padding: 12px 4px;
   box-sizing: border-box;
   border: 1px solid #adb5bd;
-  // border-radius: 5px;
+  border-radius: ${(props) => props.borderRadius};
   background-color: ${(props) => props.bg};
   border-style: ${(props) => props.borderStyle};
 `;
