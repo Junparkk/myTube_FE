@@ -16,6 +16,7 @@ const Signup = () => {
   const [pwd_check, setPwdCheck] = React.useState('');
 
   const signup = () => {
+    console.log('singup_in!');
     dispatch(userActions.signupDB(userid, channel_name, pwd, pwd_check));
   };
 
@@ -38,6 +39,7 @@ const Signup = () => {
             bg="#fff"
             label=""
             placeholder="아이디"
+            value={userid}
             _onChange={(e) => {
               setUserId(e.target.value);
             }}
@@ -53,6 +55,7 @@ const Signup = () => {
             bg="#fff"
             label=""
             placeholder="채널명"
+            value={channel_name}
             _onChange={(e) => {
               setChannelName(e.target.value);
             }}
@@ -66,6 +69,7 @@ const Signup = () => {
             label=""
             placeholder="비밀번호"
             type="password"
+            value={pwd}
             _onChange={(e) => {
               setPwd(e.target.value);
             }}
@@ -78,6 +82,7 @@ const Signup = () => {
             bg="#fff"
             label=""
             placeholder="확인"
+            value={pwd_check}
             type="password"
             _onChange={(e) => {
               setPwdCheck(e.target.value);
@@ -96,7 +101,7 @@ const Signup = () => {
             계정이 있으신가요? 로그인
           </GoLogin>
 
-          <SuccessSignUp _onClick={signup}>회원가입하기</SuccessSignUp>
+          <SuccessSignUp onClick={signup}>회원가입하기</SuccessSignUp>
         </Grid>
       </SignupWrap>
     </>

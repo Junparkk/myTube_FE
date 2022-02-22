@@ -72,7 +72,7 @@ const Login = (props) => {
             계정 만들기
           </GoSignUp>
 
-          <LoginButton _onClick={Login}>로그인 하기</LoginButton>
+          <LoginButton onClick={Login}>로그인 하기</LoginButton>
         </Grid>
       </LoginWrap>
     </>

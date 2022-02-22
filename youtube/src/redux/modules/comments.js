@@ -2,7 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 
 import { apis } from '../../shared/Request';
-
+import instance from '../../shared/Request';
 //Action Types
 const SET_COMMENT = 'SET_COMMENT';
 const ADD_COMMENT = 'ADD_COMMENT';
@@ -40,7 +40,7 @@ const initialState = {
 //댓글 조회
 const getCommentDB = (postId) => {
   return function (dispatch, getState, { history }) {
-    apis
+    instance
       .get(`/api/posts/${postId}/comments`)
       .then((response) => {
         dispatch(setComment(postId, response.data.comments));
@@ -55,8 +55,7 @@ const getCommentDB = (postId) => {
 //댓글 추가
 const addCommentDB = (postId, comment) => {
   return function (dispatch, getState, { history }) {
-    console.log('Im in!', comment, postId);
-    apis
+    instance
       .post(`/api/posts/${postId}/comments`, comment)
       .then((response) => {
         dispatch(addComment(comment));
@@ -71,8 +70,9 @@ const addCommentDB = (postId, comment) => {
 //댓글 수정
 const editCommentDB = (postId, commentId, comment) => {
   return function (dispatch, getState, { history }) {
-    apis
-      .patch(`/api/posts/${postId}/comments/${commentId}`, comment)
+    console.log('Im in! patch', comment, postId, commentId);
+    instance
+      .put(`/api/posts/${postId}/comments/${commentId}`, comment)
       .then((response) => {
         window.alert('comment update complete');
       })
@@ -88,7 +88,7 @@ const editCommentDB = (postId, commentId, comment) => {
 //댓글 삭제
 const deleteCommentDB = (postId, commentId) => {
   return function (dispatch, getSTate, { history }) {
-    apis
+    instance
       .delete(`/api/posts/${postId}/comments/${commentId}`)
       .then(() => {
         window.alert('댓글 삭제가 완료되었습니다!');

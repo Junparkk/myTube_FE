@@ -19,7 +19,7 @@ const Detail = (props) => {
       <Grid bg="white" height="100%" is_flex alignItems="flex-start">
         <Grid width="72%" padding="20px">
           <Video />
-          <CommentWrite postId={id} />
+          <CommentWrite postId={id} comment_list={comment_list} />
           <CommentList postId={id} comment_list={comment_list} />
         </Grid>
         <PlayList>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Input, Image, Text } from '../elements';
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 
@@ -34,9 +34,42 @@ export default CommentList;
 
 const CommentItem = (props) => {
   const dispatch = useDispatch();
-  const { postId, key } = props;
+  const { postId, channelName, commentId, comment } = props;
   const comment_list = useSelector((state) => state.comments.list[postId]);
 
+  //input 창
+  let [input, setInput] = useState();
+  const [editable, setEditable] = useState(false);
+
+  const handleChange = (e) => {
+    setInput(e.target.value);
+  };
+
+  const editOn = () => {
+    setEditable(true);
+    setInput(comment);
+  };
+  const editOff = () => {
+    setEditable(false);
+  };
+  const handleKeydown = (e) => {
+    if (e.key === 'Enter') {
+      editComment();
+    }
+  };
+  //댓글 수정하기
+  const editComment = () => {
+    let content = {
+      comment: input,
+    };
+    dispatch(commentsActions.editCommentDB(postId, commentId, content));
+    setEditable(!editable);
+  };
+
+  //댓글 삭제하기
+  const deleteComment = () => {
+    dispatch(commentsActions.deleteCommentDB(postId, commentId));
+  };
   return (
     <>
       <Grid is_flex padding="10px" alignItems="flex-start">
@@ -52,7 +85,46 @@ const CommentItem = (props) => {
             </Text>
           </Grid>
           <Grid is_flex>
-            <Text color="#000"> {props.comment} </Text>
+            <Text color="#000">
+              {editable ? (
+                <Grid>
+                  <Grid>
+                    <Input
+                      type="text"
+                      borderStyle="none none solid none"
+                      width="100%"
+                      bg="#fff"
+                      margin="10px 0px"
+                      color="#000"
+                      value={input}
+                      _onChange={handleChange}
+                      _onKeyDown={handleKeydown}
+                    />
+                  </Grid>
+
+                  <Grid is_flex justifyContent="right">
+                    <Button
+                      width="80px"
+                      bg="#fff"
+                      color="#aaaaaa"
+                      _onClick={editOff}
+                    >
+                      취소
+                    </Button>
+                    <Button
+                      width="80px"
+                      bg="#ececec"
+                      color="#6d6d6d"
+                      _onClick={editComment}
+                    >
+                      댓글
+                    </Button>
+                  </Grid>
+                </Grid>
+              ) : (
+                comment
+              )}
+            </Text>
             <Grid is_flex justifyContent="right">
               <Button
                 bg="#fff"
@@ -61,9 +133,12 @@ const CommentItem = (props) => {
                 alignItems="center"
                 display="flex"
                 padding="0"
+                _onClick={editOn}
+                style={{ cursor: 'pointer' }}
               >
                 <HiOutlinePencil color="#000" />
               </Button>
+
               <Button
                 bg="#fff"
                 width="15px"
@@ -71,6 +146,7 @@ const CommentItem = (props) => {
                 alignItems="center"
                 display="flex"
                 padding="0"
+                _onClick={deleteComment}
               >
                 <BsTrash color="#000" />
               </Button>

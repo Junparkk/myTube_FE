@@ -9,13 +9,24 @@ import { history } from '../redux/configureStore';
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
-  const { postId } = props;
-  console.log('CommentWrite', postId);
+  const { postId, profile } = props;
+  console.log('CommentWrite', props, profile);
   //댓글 쓰기
   const [comment, setComment] = React.useState('');
 
   const onChange = (e) => {
     setComment(e.target.value);
+  };
+
+  //댓글 버튼 on/off
+  const [commentButton, setCommentButton] = React.useState(false);
+
+  const btnOn = () => {
+    setCommentButton(true);
+  };
+
+  const btnOff = () => {
+    setCommentButton(false);
   };
 
   const write = () => {
@@ -66,15 +77,27 @@ const CommentWrite = (props) => {
             color="#000"
             value={comment}
             _onChange={onChange}
+            _onFocus={btnOn}
           />
-          <Grid is_flex justifyContent="right">
-            <Button width="80px" bg="#fff" color="#aaaaaa">
-              취소
-            </Button>
-            <Button width="80px" bg="#ececec" color="#6d6d6d" _onClick={write}>
-              댓글
-            </Button>
-          </Grid>
+          {commentButton ? (
+            <Grid is_flex justifyContent="right">
+              <Button width="80px" bg="#fff" color="#aaaaaa" _onClick={btnOff}>
+                취소
+              </Button>
+              <Button
+                width="80px"
+                bg="#ececec"
+                color="#6d6d6d"
+                _onClick={write}
+              >
+                댓글
+              </Button>
+            </Grid>
+          ) : (
+            <Grid>
+              <Button bg="#fff" color="#fff"></Button>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </>

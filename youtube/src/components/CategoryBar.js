@@ -1,11 +1,40 @@
 import React from 'react';
 import styled from 'styled-components';
+import { actionCreators as postActions } from '../redux/modules/post';
+import { useDispatch, useSelector } from 'react-redux';
 
 const CategoryBar = () => {
+  const dispatch = useDispatch();
+  //#f4f4f4
+  const [clickedCategory, setclickedCategory] = React.useState(0);
+  const checkLoadAll = useSelector((state) => state.post.checkLoadAll);
+
+  React.useEffect(() => {
+    if (checkLoadAll) {
+      setclickedCategory(0);
+    }
+  }, [checkLoadAll]);
+  const categoryList = ['모두', '관련 컨텐츠'];
   return (
     <CategoryBox>
-      <CategoryCircle>모두</CategoryCircle>
-      <CategoryCircle>관련 컨텐츠</CategoryCircle>
+      {categoryList.map((e, i) => (
+        <CategoryCircle
+          key={i}
+          onClick={() => {
+            setclickedCategory(i);
+
+            i === 0
+              ? dispatch(postActions.getPostDB())
+              : dispatch(postActions.getPostDB(e));
+          }}
+          style={{
+            backgroundColor: i === clickedCategory ? '#303030' : '#ececec',
+            color: i === clickedCategory ? '#fff' : '#000',
+          }}
+        >
+          {e}
+        </CategoryCircle>
+      ))}
     </CategoryBox>
   );
 };
