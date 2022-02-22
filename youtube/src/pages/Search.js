@@ -1,17 +1,17 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import qs from 'qs';
 
 import { Grid } from '../elements';
-// import Category from '../components/Category';
+import Category from '../components/Category';
 import PostCard from '../components/PostCard';
-import CategoryBarMain from '../components/CategoryBarMain';
 
 import { useSelector, useDispatch } from 'react-redux';
 
 import { actionCreators as postActions } from '../redux/modules/post';
 
-const Main = () => {
+const Search = () => {
   const dispatch = useDispatch();
 
   const post_list = useSelector((state) => state.post.list);
@@ -20,7 +20,6 @@ const Main = () => {
   }, []);
   return (
     <>
-      <CategoryBarMain />
       <Grid width="100vw" height="100vh">
         <Wrap>
           {post_list.map((post, idx) => {
@@ -54,4 +53,4 @@ const Wrap = styled.div`
     grid-template-columns: repeat(1, 1fr);
   }
 `;
-export default Main;
+export default Search;

@@ -10,6 +10,7 @@ import Signup from '../pages/Signup';
 import Write from '../pages/Write';
 import Detail from '../pages/Detail';
 import Header from '../components/Header';
+import Search from '../pages/Search';
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
         <Route path="/signup" exact component={Signup}></Route>
         <Route path="/write" exact component={Write}></Route>
         <Route path="/write/:postId" exact component={Write}></Route>
+        <Route path="/search" exact component={Search}></Route>
         <Route path="/api/posts/:postId" exact component={Detail}></Route>
+
       </ConnectedRouter>
     </>
   );

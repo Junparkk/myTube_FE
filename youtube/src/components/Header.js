@@ -13,11 +13,13 @@ import { BsPersonCircle } from 'react-icons/bs';
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
+import { actionCreators as searchActions } from '../redux/modules/post';
 
 import { history } from '../redux/configureStore';
 
 import Modal from './Modal';
 const Header = (props) => {
+  const dispatch = useDispatch();
   //모달 창
   let [modalopen, setModalopen] = useState(false);
   //사이드 탭 열기
@@ -29,6 +31,16 @@ const Header = (props) => {
   //참여인원 팝업 닫기
   const closeModal = () => {
     setModalopen(false);
+  };
+
+  //search (비동기라서 dispatch로 넘겨보자)
+  const [search, setSearch] = React.useState('');
+  const keywordSearch = (e) => {
+    //엔터치면 값이 입력되게
+    if (e.code === 'Enter') {
+      setSearch(e.target.value);
+      dispatch(searchActions.searchAPI(e.target.value));
+    }
   };
   return (
     <>
@@ -56,9 +68,12 @@ const Header = (props) => {
 
         <Grid is_flex justifyContent="center">
           <Input
-          label=""
-          placeholder="검색"
-          width="80%" bg="#fff"></Input>
+            label=""
+            _onKeyPress={keywordSearch}
+            placeholder="검색"
+            width="80%"
+            bg="#fff"
+          ></Input>
 
           <KeyboardIcon>
             <FaKeyboard size="40px" />
@@ -105,12 +120,12 @@ const Header = (props) => {
 };
 
 const LeftIcon = styled.button`
-cursor: pointer;
-border: none;
-background-color: #fff;
-display: flex;
-justifycontent: left;
-width: 70px;
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  justifycontent: left;
+  width: 70px;
 `;
 
 const KeyboardIcon = styled.button`

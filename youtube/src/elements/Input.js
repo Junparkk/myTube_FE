@@ -25,6 +25,7 @@ const Input = (props) => {
     borderRadius,
     margin,
     color,
+    _onKeyPress,
   } = props;
 
   const styles = {
@@ -49,6 +50,7 @@ const Input = (props) => {
         onKeyDown={_onKeyDown}
         ref={_ref}
         onFocus={_onFocus}
+        onKeyPress={_onKeyPress}
       />
     </>
   );
@@ -68,6 +70,7 @@ Input.defaultProps = {
   _ref: () => {},
   _onFocus: () => {},
   margin: false,
+  _onKeyPress: () => {},
 };
 
 const ElInput = styled.input`

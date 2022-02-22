@@ -16,7 +16,6 @@ const PostCard = (props) => {
   };
   const { postId } = props;
   const test = useRef(null);
-  React.useEffect(() => console.log(test.current.poster), []);
 
   return (
     <>
