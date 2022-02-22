@@ -46,8 +46,7 @@ const Header = (props) => {
           <img //노란줄 왜 이러는 걸까요
             src={MainLogo}
             style={{
-              width: '80%',
-              height: '10%',
+              width: '150px',
             }}
             onClick={() => {
               history.push('/');
@@ -56,7 +55,10 @@ const Header = (props) => {
         </Grid>
 
         <Grid is_flex justifyContent="center">
-          <Input width="80%" bg="#fff"></Input>
+          <Input
+          label=""
+          placeholder="검색"
+          width="80%" bg="#fff"></Input>
 
           <KeyboardIcon>
             <FaKeyboard size="40px" />
@@ -102,22 +104,22 @@ const Header = (props) => {
   );
 };
 
+const LeftIcon = styled.button`
+cursor: pointer;
+border: none;
+background-color: #fff;
+display: flex;
+justifycontent: left;
+width: 70px;
+`;
+
 const KeyboardIcon = styled.button`
   cursor: pointer;
   border: none;
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 5%;
-`;
-
-const LeftIcon = styled.button`
-  cursor: pointer;
-  border: none;
-  background-color: #fff;
-  display: flex;
-  justifycontent: left;
-  width: 5%;
+  width: 50px;
 `;
 
 const SearchIcon = styled.button`
@@ -126,7 +128,7 @@ const SearchIcon = styled.button`
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 6.5%;
+  width: 45px;
 `;
 
 const VideoIcon = styled.button`
@@ -135,24 +137,16 @@ const VideoIcon = styled.button`
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 8%;
+  width: 65px;
 `;
 
-const LoginIcon = styled.button`
-  cursor: pointer;
-  border: none;
-  background-color: #fff;
-  display: flex;
-  justifycontent: right;
-  width: 4%;
-`;
 const PadIcon = styled.button`
   cursor: pointer;
   border: none;
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 5%;
+  width: 55px;
 `;
 
 const BellIcon = styled.button`
@@ -161,6 +155,16 @@ const BellIcon = styled.button`
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 5%;
+  width: 55px;
 `;
+
+const LoginIcon = styled.button`
+  cursor: pointer;
+  border: none;
+  background-color: #fff;
+  display: flex;
+  justifycontent: right;
+  width: 55px;
+`;
+
 export default Header;
