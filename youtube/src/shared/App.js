@@ -10,6 +10,7 @@ import Signup from '../pages/Signup';
 import Write from '../pages/Write';
 import Detail from '../pages/Detail';
 import Header from '../components/Header';
+import Search from '../pages/Search';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/write" exact component={Write}></Route>
         <Route path="/write/:postId" exact component={Write}></Route>
         <Route path="/detail/:postId" exact component={Detail}></Route>
+        <Route path="/search" exact component={Search}></Route>
       </ConnectedRouter>
     </>
   );

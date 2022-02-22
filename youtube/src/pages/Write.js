@@ -21,6 +21,13 @@ const Write = (props) => {
   const [fileVideo, setFileVideo] = React.useState(
     'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png'
   );
+  const [previewImg, setPreviewImg] = React.useState(
+    'https://user-images.githubusercontent.com/82128525/154899930-6333a730-9e2c-4123-a3b7-760d9e61b43f.png'
+  );
+  const [previewVideo, setPreviewVideo] = React.useState(
+    'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png'
+  );
+
   const changeTitle = (e) => {
     setTitle(e.target.value);
   };
@@ -28,36 +35,18 @@ const Write = (props) => {
   const changeContent = (e) => {
     setContent(e.target.value);
   };
-  // const changeCategory = (e) => {
-  //   setCategory(e.target.value);
-  // };
 
   const saveFileImage = (e) => {
     const img = e.target.files[0];
-    // const formData = new FormData();
-    // formData.append('imgUrl', img);
-
-    // console.log('formDate', formData); // FormData {}
-    // for (const keyValue of formData) console.log(keyValue);
     setFileImage(img);
-    // dispatch(postActions.imageAPI(formData));
-    // setFileImage(URL.createObjectURL(e.target.files[0]));
+    setPreviewImg(URL.createObjectURL(e.target.files[0]));
   };
-  console.log(fileImage);
 
   const saveFileVideo = (e) => {
     const video = e.target.files[0];
-    // const formData = new FormData();
-    // formData.append('videoUrl', video);
-
-    // console.log('formDate', formData); // FormData {}
-    // for (const keyValue of formData) console.log(keyValue);
     setFileVideo(video);
-
-    // dispatch(postActions.imageAPI(formData));
-    // setFileVideo(URL.createObjectURL(e.target.files[0]));
+    setPreviewVideo(URL.createObjectURL(e.target.files[0]));
   };
-  console.log(fileVideo, 'test');
 
   const addPost = () => {
     const data = new FormData();
@@ -167,7 +156,7 @@ const Write = (props) => {
                 padding=".7rem 0"
                 margin="0 0 0 5px"
               >
-                <img width="100%" height="100%" src={fileImage} alt="" />
+                <img width="100%" height="100%" src={previewImg} alt="" />
               </Container>
             </Container>
           </Container>
@@ -206,7 +195,7 @@ const Write = (props) => {
         <Container className="right" width="100%">
           <Container flexDirection="column">
             <Container>
-              <Video src={fileVideo}></Video>
+              <Video src={previewVideo}></Video>
             </Container>
             <Container flexDirection="column">
               <Text size=".7rem">파일 이름</Text>
@@ -247,7 +236,13 @@ const Write = (props) => {
                   borderRadius: '2rem',
                 }}
                 disabled={
-                  title === '' || content === '' || category === '선택'
+                  title === '' ||
+                  content === '' ||
+                  category === '선택' ||
+                  fileImage ===
+                    'https://user-images.githubusercontent.com/82128525/154899930-6333a730-9e2c-4123-a3b7-760d9e61b43f.png' ||
+                  fileVideo ===
+                    'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png'
                     ? true
                     : false
                 }

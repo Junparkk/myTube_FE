@@ -34,6 +34,9 @@ export const apis = {
   createUser: (user) => instance.post('/api/user/signup', user),
   createLogin: (user) => instance.post('/api/user/login', user),
   checkToken: (user) => instance.post('/api/user/me', user),
+
+  //search
+  wordSearch: (searchWord) => instance.get(`/api/posts?search=${searchWord}`),
 };
 
 export default instance;

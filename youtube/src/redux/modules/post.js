@@ -10,6 +10,7 @@ const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
 const ONE_POST = 'ONE_POST';
 const STATE_POST = 'STATE_POST';
+const SEARCH_POST = 'SEARCH_POST';
 
 // Image
 const IMAGE_URL = 'IMAGE_URL';
@@ -29,6 +30,9 @@ const statePost = createAction(STATE_POST, () => ({}));
 
 // 이미지 url 저장
 const getImageUrl = createAction(IMAGE_URL, (img_url) => ({ img_url }));
+
+// post Search
+const searchPost = createAction(SEARCH_POST, (word) => ({ word }));
 
 const initialPost = {
   postId: '_id',
@@ -54,7 +58,7 @@ const initialState = {
 
 //middleware
 
-//전체 상품 조회
+//전체 영상 조회
 const getPostAPI = () => {
   return async function (dispatch, useState, { history }) {
     await apis.posts().then(function (res) {
@@ -63,7 +67,7 @@ const getPostAPI = () => {
     });
   };
 };
-//판매 상품 등록
+//영상 등록
 const addPostAPI = (data) => {
   return function (dispatch, useState, { history }) {
     console.log('API', data);
@@ -71,6 +75,18 @@ const addPostAPI = (data) => {
     apis.add(data).then(function (res) {
       console.log(res);
       // window.location.replace('/');
+    });
+  };
+};
+//영상 검색
+const searchAPI = (keywordSearch) => {
+  return function (dispatch, useState, { history }) {
+    console.log('API', keywordSearch);
+    history.push(`/search?word=${keywordSearch}`);
+
+    apis.wordSearch(keywordSearch).then(function (res) {
+      console.log(res.data.posts);
+      dispatch(searchPost(res.data.posts));
     });
   };
 };
@@ -90,6 +106,10 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
       }),
+    [SEARCH_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list = action.payload.word;
+      }),
   },
   initialState
 );
@@ -97,6 +117,7 @@ export default handleActions(
 const actionCreators = {
   getPostAPI,
   addPostAPI,
+  searchAPI,
 };
 
 export { actionCreators };
