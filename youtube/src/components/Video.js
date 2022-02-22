@@ -1,16 +1,19 @@
 import React from 'react';
 import { Button, Grid, Input, Text, Image } from '../elements';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { GiSaveArrow } from 'react-icons/gi';
 import { MdOutlinePlaylistAdd, MdOutlineMoreHoriz } from 'react-icons/md';
 const Video = (props) => {
+  const postId = props.postId;
+  const post_list = useSelector((state) => state.post.list);
+  const post = post_list.find((p) => p.postId === postId);
   return (
     <section>
       <video
-        // src={`https://www.youtube.com/embed/4OtkJ3X_gAQ`}
-
         width="100%"
         height="800px"
         frameBorder="0"
@@ -19,20 +22,17 @@ const Video = (props) => {
         autoPlay="autoplay"
         muted="muted"
       >
-        <source
-          src={`https://response-mz-0.s3.ap-northeast-2.amazonaws.com/original/1645201205383KakaoTalk_20220219_011720432.mp4`}
-          type="video/mp4"
-        />
+        <source src={`${post.videoUrl}`} type="video/mp4" />
       </video>
       <Grid>
         <Text color="#000" size="20px" bold>
-          제목
+          {post.title}
         </Text>
       </Grid>
 
       <Grid is_flex>
         <Text width="200px" color="#606060" margin="1px">
-          조회수 10,000회
+          조회수 {post.views}회
         </Text>
         <Grid is_flex justifyContent="right">
           {/* 좋아요 */}
@@ -107,7 +107,7 @@ const Video = (props) => {
         <Grid is_flex>
           <Image shape="circle" />
           <Grid>
-            <Text color="#000">채널명</Text>
+            <Text color="#000">{post.channelName}</Text>
             <Text color="#000">구독자 123만명</Text>
           </Grid>
           <Button width="100px" bg="#cc0a00" color="#ffffff">

@@ -71,7 +71,7 @@ const signupDB = (userid, channel_name, pwd, pwd_check) => {
       });
   };
 };
-
+//
 export default handleActions(
   {
     [LOG_IN]: (state, action) =>

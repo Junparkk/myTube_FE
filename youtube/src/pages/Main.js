@@ -3,8 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Grid } from '../elements';
-import Category from '../components/Category';
+// import Category from '../components/Category';
 import PostCard from '../components/PostCard';
+import CategoryBarMain from '../components/CategoryBarMain';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -20,7 +21,7 @@ const Main = () => {
   }, []);
   return (
     <>
-      <Category />
+      <CategoryBarMain />
       <Grid width="100vw" height="100vh">
         <Wrap>
           {post_list.map((post, idx) => {

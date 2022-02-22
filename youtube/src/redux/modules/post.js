@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { immerable, produce } from 'immer';
 
 import { apis } from '../../shared/Request';
+import instance from '../../shared/Request';
 
 // post
 const SET_POST = 'SET_POST';
@@ -10,11 +11,15 @@ const EDIT_POST = 'EDIT_POST';
 const DELETE_POST = 'DELETE_POST';
 const ONE_POST = 'ONE_POST';
 const STATE_POST = 'STATE_POST';
+const SET_CATEGORY = 'SET_CATEGORY';
 
 // Image
 const IMAGE_URL = 'IMAGE_URL';
 
-const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
+const setPost = createAction(SET_POST, (post_list, checkLoadAll) => ({
+  post_list,
+  checkLoadAll,
+}));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -30,6 +35,10 @@ const statePost = createAction(STATE_POST, () => ({}));
 // 이미지 url 저장
 const getImageUrl = createAction(IMAGE_URL, (img_url) => ({ img_url }));
 
+//카테고리 설정
+const setCategory = createAction(SET_CATEGORY, (category) => ({
+  category,
+}));
 const initialPost = {
   postId: '_id',
   channelName: '홍길동',
@@ -50,10 +59,41 @@ const initialState = {
   comments: [],
   img: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png',
   filterState: 0, // 0 : 전체보기 1 : 판매 중 2: 판매 완료
+  category: '전체',
 };
 
 //middleware
-
+// 카테고리 별 상품 조회
+const getPostCategory = (category) => {
+  if (category) {
+    return function (dispatch, useState, { history }) {
+      instance
+        .get(`/api/posts?category=${category}`)
+        .then((response) => {
+          console.log('category in!');
+          dispatch(setPost(response.data.posts, false));
+          dispatch(setCategory(category));
+        })
+        .catch((error) => {
+          console.log('Error!');
+        });
+    };
+  }
+};
+//게시물 상세 페이지 가기
+const getOnePostDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .get(`/api/posts/${postId}`)
+      .then((response) => {
+        console.log('GetOnePostDB', response.data);
+        dispatch(setPost(response.data.posts));
+      })
+      .catch((error) => {
+        console.log('getOnePostDB_ERror', error);
+      });
+  };
+};
 //전체 상품 조회
 const getPostAPI = () => {
   return async function (dispatch, useState, { history }) {
@@ -77,6 +117,11 @@ const addPostAPI = (data) => {
 
 export default handleActions(
   {
+    [SET_CATEGORY]: (state, action) =>
+      produce(state, (draft) => {
+        draft.category = action.payload.category;
+      }),
+
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.post_list;
@@ -97,6 +142,8 @@ export default handleActions(
 const actionCreators = {
   getPostAPI,
   addPostAPI,
+  getPostCategory,
+  getOnePostDB,
 };
 
 export { actionCreators };
