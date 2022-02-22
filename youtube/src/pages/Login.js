@@ -32,6 +32,7 @@ const Login = (props) => {
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="아이디를 입력해주세요."
@@ -45,6 +46,7 @@ const Login = (props) => {
         <Grid padding="0px 10%" margin="10px 0px 10px 0px" height="13%">
           <Input
             width="100%"
+            borderRadius="5px"
             bg="#fff"
             label=""
             placeholder="비밀번호를 입력해주세요."
@@ -85,11 +87,17 @@ const LoginWrap = styled.div`
   align-items: center;
   box-sizing: border-box;
   margin: auto;
-  margin-top: 50px;
-  width: 50%;
-  height: 750px;
+  margin-top: 65px;
+  width: 600px;
+  height: 700px;
   border-radius: 5px;
   border: 1px solid #adb5bd;
+  @media (min-width: 450px) {
+    padding: 48px 40px 36px 40px;
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
 `;
 
 const Logo = styled.img`
@@ -110,7 +118,7 @@ const LogInText = styled.div`
 const GoMytubeText = styled.div`
   font-size: 16px;
   margin: auto;
-  padding: 5px 0px 8% 0px;
+  padding: 5px 0px 8px 0px;
 `;
 
 const ForgetMailText = styled.div`
@@ -118,6 +126,7 @@ const ForgetMailText = styled.div`
   margin: auto 0px;
   padding: 5px 0px 0px 0px;
   color: #1a73e8;
+  justifycontent: left;
 `;
 
 const NotMyComText = styled.div`
@@ -135,7 +144,7 @@ const GoSignUp = styled.div`
   margin: 0px 80px;
 `;
 
-const LoginButton = styled.button`
+const LoginButton = styled.div`
   border: none;
   border-radius: 5px;
   background-color: #1a73e8;

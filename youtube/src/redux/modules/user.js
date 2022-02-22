@@ -48,7 +48,7 @@ const loginDB = (userid, pwd) => {
 };
 
 const signupDB = (userid, channel_name, pwd, pwd_check) => {
-  return function (dispatch, getState, { history }) {
+  return function ({ history }) {
     apis
       .createUser({
         userId: userid,

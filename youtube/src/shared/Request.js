@@ -28,8 +28,7 @@ export const apis = {
   // post
   posts: () => instance.get('/api/posts'),
   post: (postId) => instance.get(`/api/posts/${postId}`, {}),
-  add: (title, content, category, videoFile, imgFile) =>
-    instance.post('/api/posts', title, content, category, videoFile, imgFile),
+  add: (data) => instance.post('/api/posts', data),
 
   //user
   createUser: (user) => instance.post('/api/user/signup', user),
