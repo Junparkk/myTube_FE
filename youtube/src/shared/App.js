@@ -22,8 +22,9 @@ function App() {
         <Route path="/signup" exact component={Signup}></Route>
         <Route path="/write" exact component={Write}></Route>
         <Route path="/write/:postId" exact component={Write}></Route>
-        <Route path="/detail/:postId" exact component={Detail}></Route>
         <Route path="/search" exact component={Search}></Route>
+        <Route path="/api/posts/:postId" exact component={Detail}></Route>
+
       </ConnectedRouter>
     </>
   );

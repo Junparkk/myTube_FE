@@ -13,11 +13,12 @@ const Signup = () => {
   const [userid, setUserId] = React.useState('');
   const [channel_name, setChannelName] = React.useState('');
   const [pwd, setPwd] = React.useState('');
-  const [pwd_check, setPwdCheck] = React.useState('');
+  const [pwd_check, setPwdCheck] = React.useState("");
+  const [profile, setProfile] = React.useState('');
 
   const signup = () => {
     console.log('singup_in!');
-    dispatch(userActions.signupDB(userid, channel_name, pwd, pwd_check));
+    dispatch(userActions.signupDB(userid, channel_name, pwd, profile));
   };
 
   return (
@@ -47,7 +48,7 @@ const Signup = () => {
           />
         </Grid>
 
-        <ConfirmText>이 아이디가 본인 소유인지 확인해야 합니다.</ConfirmText>
+        <Noticetext>영문(필수), 숫자(필수)로 이루어진 4~16글자를 사용하세요</Noticetext>
         <NewIdText>새로운 Gmail 아이디 만들기</NewIdText>
 
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
@@ -63,6 +64,8 @@ const Signup = () => {
             }}
           />
         </Grid>
+
+        <Noticetext>영문이나 숫자 또는 한글로 이루어진 2~16글자를 사용하세요</Noticetext>
 
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
@@ -94,7 +97,7 @@ const Signup = () => {
           />
         </Grid>
 
-        <PwdText>문자, 숫자, 기호를 조합하여 4~20 글자를 사용하세요</PwdText>
+        <Noticetext>영문(필수), 숫자(필수), 특수문자(선택)로 이루어진 4~20글자를 사용하세요</Noticetext>
 
         <Grid is_flex>
           <GoLogin
@@ -152,7 +155,7 @@ const GoMytubeText = styled.div`
   margin: auto;
 `;
 
-const ConfirmText = styled.div`
+const Noticetext = styled.div`
   font-size: 15px;
   margin: auto;
   color: #adb5bd;
@@ -163,12 +166,6 @@ const NewIdText = styled.div`
   margin-top: 10px;
   background-color: #fff;
   color: #1a73e8;
-`;
-
-const PwdText = styled.div`
-  font-size: 15px;
-  margin: auto;
-  color: #adb5bd;
 `;
 
 const GoLogin = styled.button`

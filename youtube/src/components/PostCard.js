@@ -1,7 +1,9 @@
 import React from 'react';
 import { useRef } from 'react';
+import { history } from '../redux/configureStore';
 import styled from 'styled-components';
 import { Grid, Input, Text } from '../elements';
+// import { getOwnPropertyDescriptors } from 'immer/dist/internal';
 
 const PostCard = (props) => {
   //마우스 오버시 동영상 실행
@@ -12,12 +14,16 @@ const PostCard = (props) => {
   const handleOnMouseOut = (e) => {
     e.currentTarget.load();
   };
-
+  const { postId } = props;
   const test = useRef(null);
 
   return (
     <>
-      <Card>
+      <Card
+        onClick={() => {
+          history.push(`/api/posts/${postId}`);
+        }}
+      >
         <Wrap flex="column">
           <Wrap height="160px">
             <video

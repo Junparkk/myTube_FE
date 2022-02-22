@@ -25,7 +25,7 @@ const loginDB = (userid, pwd) => {
   return function (dispatch, getState, { history }) {
     apis
       .createLogin({
-        userid: userid,
+        userId: userid,
         password: pwd,
       })
       .then((res) => {
@@ -40,22 +40,38 @@ const loginDB = (userid, pwd) => {
             channelname: res.data.channelname,
           })
         );
-      });
-    history.replace('/').catch((err) => {
+        history.replace('/')
+      })
+    .catch((err) => {
       console.log(err);
+      alert(err.res.data.errorMessage);
     });
   };
 };
 
-const signupDB = (userid, channel_name, pwd, pwd_check) => {
+const signupDB = (userid, channel_name, pwd, profile) => {
   return function ({ history }) {
+    const images = [
+    'https://i.insider.com/4f3433986bb3f7b67a00003c?width=600&format=jpeg&auto=webp',
+    'https://user-images.githubusercontent.com/82128525/155101303-f73b78ee-e7af-4469-a931-9276e07a4691.JPG',
+    'https://user-images.githubusercontent.com/82128525/155101036-db933bc3-5c5c-4114-885b-9ca7b4228a89.jpg',
+    'https://user-images.githubusercontent.com/82128525/155101080-8358eaea-b234-4cb9-8fd1-6aa79e2039de.jpg',
+    'https://d3qdz57zgika7q.cloudfront.net/im/j/28327/photoPosting/2018/07/16/m/1531730864842_1.jpg',
+    'https://cdn.crowdpic.net/list-thumb/thumb_l_9FE164C0EDD4A4BC3978BFA20EB7DD0C.jpg',
+    'https://cdn.crowdpic.net/list-thumb/thumb_l_B58CFD4FAA4D4A229D33C7F9E36C9DB0.jpg',
+    'https://pbs.twimg.com/media/DhZ6tLoXkAEfAgv?format=jpg&name=large',
+    'https://cdn.pixabay.com/photo/2015/03/08/11/02/cat-664040_960_720.jpg',
+    'https://user-images.githubusercontent.com/82128525/155100983-7e381660-b4a2-4340-b645-0ecd14d141fe.jpg',
+  ]
+    const getRandom = (min, max) => Math.floor(Math.random() * (max - min) + min);
+    const num = getRandom(0, 9)
+    
     apis
       .createUser({
         userId: userid,
         channelName: channel_name,
         password: pwd,
-        profile:
-          'https://i.insider.com/4f3433986bb3f7b67a00003c?width=600&format=jpeg&auto=webp',
+        profile: images[num],
       })
       .then((response) => {
         console.log('Signup_response', response);
@@ -71,7 +87,7 @@ const signupDB = (userid, channel_name, pwd, pwd_check) => {
       });
   };
 };
-
+//
 export default handleActions(
   {
     [LOG_IN]: (state, action) =>

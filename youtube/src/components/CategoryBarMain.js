@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { useDispatch, useSelector } from 'react-redux';
 
-const CategoryBar = () => {
+const CategoryBarMain = () => {
   const dispatch = useDispatch();
   //#f4f4f4
   const [clickedCategory, setclickedCategory] = React.useState(0);
@@ -14,7 +14,15 @@ const CategoryBar = () => {
       setclickedCategory(0);
     }
   }, [checkLoadAll]);
-  const categoryList = ['모두', '관련 컨텐츠'];
+  const categoryList = [
+    '전체',
+    '음악',
+    '요리',
+    '스포츠',
+    '여행',
+    '동물',
+    '게임',
+  ];
   return (
     <CategoryBox>
       {categoryList.map((e, i) => (
@@ -24,8 +32,8 @@ const CategoryBar = () => {
             setclickedCategory(i);
 
             i === 0
-              ? dispatch(postActions.getPostDB())
-              : dispatch(postActions.getPostDB(e));
+              ? dispatch(postActions.getPostAPI())
+              : dispatch(postActions.getPostCategory(e));
           }}
           style={{
             backgroundColor: i === clickedCategory ? '#303030' : '#ececec',
@@ -51,6 +59,8 @@ const CategoryBox = styled.div`
     margin-bottom: 35px;
     padding-bottom: 0px;
   }
+  //center
+  justify-content: center;
 `;
 const CategoryCircle = styled.p`
   margin: 10px;
@@ -67,4 +77,4 @@ const CategoryCircle = styled.p`
   color: #ffffff;
 `;
 
-export default CategoryBar;
+export default CategoryBarMain;
