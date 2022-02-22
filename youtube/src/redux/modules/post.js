@@ -64,34 +64,13 @@ const getPostAPI = () => {
   };
 };
 //판매 상품 등록
-const addPostAPI = (title, price, imgurl = '', content) => {
+const addPostAPI = (data) => {
   return function (dispatch, useState, { history }) {
-    const token = localStorage.getItem('login-token');
+    console.log('API', data);
 
-    console.log(title, price, imgurl, content);
-
-    apis
-      .add(
-        { title, price, imgurl, content },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      )
-      .then(function (res) {
-        window.location.replace('/');
-      });
-  };
-};
-
-// 이미지 #######################################################3
-
-// 이미지 등록하기 (url 받아오기)
-const imageAPI = (file) => {
-  for (const keyValue of file) console.log(keyValue);
-  return async function (dispatch, useState, { history }) {
-    apis.image(file).then(function (res) {
-      console.log(res.data.imgurl);
-      dispatch(getImageUrl(res.data.imgurl));
+    apis.add(data).then(function (res) {
+      console.log(res);
+      // window.location.replace('/');
     });
   };
 };
@@ -117,6 +96,7 @@ export default handleActions(
 
 const actionCreators = {
   getPostAPI,
+  addPostAPI,
 };
 
 export { actionCreators };
