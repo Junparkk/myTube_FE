@@ -5,9 +5,12 @@ import styled from 'styled-components';
 import { BiImageAdd } from 'react-icons/bi';
 
 import DropDown from '../components/DropDown';
+import post, { actionCreators as postActions } from '../redux/modules/post';
 import { current } from 'immer';
+import { useDispatch } from 'react-redux';
 
 const Write = (props) => {
+  const dispatch = useDispatch();
   //입력값 받아내기
   const [title, setTitle] = React.useState('');
   const [content, setContent] = React.useState();
@@ -21,7 +24,7 @@ const Write = (props) => {
   const changeTitle = (e) => {
     setTitle(e.target.value);
   };
-  console.log(category, '제발');
+
   const changeContent = (e) => {
     setContent(e.target.value);
   };
@@ -31,22 +34,40 @@ const Write = (props) => {
 
   const saveFileImage = (e) => {
     const img = e.target.files[0];
-    const formData = new FormData();
-    formData.append('imgUrl', img);
-    console.log('formDate', formData); // FormData {}
-    for (const keyValue of formData) console.log(keyValue);
+    // const formData = new FormData();
+    // formData.append('imgUrl', img);
+
+    // console.log('formDate', formData); // FormData {}
+    // for (const keyValue of formData) console.log(keyValue);
+    setFileImage(img);
     // dispatch(postActions.imageAPI(formData));
-    setFileImage(URL.createObjectURL(e.target.files[0]));
+    // setFileImage(URL.createObjectURL(e.target.files[0]));
   };
   console.log(fileImage);
+
   const saveFileVideo = (e) => {
     const video = e.target.files[0];
-    const formData = new FormData();
-    formData.append('videoUrl', video);
-    console.log('formDate', formData); // FormData {}
-    for (const keyValue of formData) console.log(keyValue);
+    // const formData = new FormData();
+    // formData.append('videoUrl', video);
+
+    // console.log('formDate', formData); // FormData {}
+    // for (const keyValue of formData) console.log(keyValue);
+    setFileVideo(video);
+
     // dispatch(postActions.imageAPI(formData));
-    setFileVideo(URL.createObjectURL(e.target.files[0]));
+    // setFileVideo(URL.createObjectURL(e.target.files[0]));
+  };
+  console.log(fileVideo, 'test');
+
+  const addPost = () => {
+    const data = new FormData();
+    data.append('title', title);
+    data.append('content', content);
+    data.append('videoFile', fileVideo);
+    data.append('imageFile', fileImage);
+    data.append('category', category);
+
+    dispatch(postActions.addPostAPI(data));
   };
   return (
     <>
@@ -188,10 +209,7 @@ const Write = (props) => {
               <Video src={fileVideo}></Video>
             </Container>
             <Container flexDirection="column">
-              <Text size=".7rem">동영상 링크</Text>
-              <Text size=".4rem">http</Text>
               <Text size=".7rem">파일 이름</Text>
-              <Text size=".4rem">멍텅구리</Text>
             </Container>
             <Container>
               <label
@@ -217,6 +235,26 @@ const Write = (props) => {
                 accept=".mp4"
                 onChange={saveFileVideo}
               ></FileInput>
+            </Container>
+            {/* 업로드 버튼 */}
+            <Container width="100%">
+              <button
+                style={{
+                  width: '100%',
+                  height: '2rem',
+                  marginTop: '5px',
+                  backgroundColor: 'white',
+                  borderRadius: '2rem',
+                }}
+                disabled={
+                  title === '' || content === '' || category === '선택'
+                    ? true
+                    : false
+                }
+                onClick={() => addPost()}
+              >
+                게시글 등록
+              </button>
             </Container>
           </Container>
         </Container>
