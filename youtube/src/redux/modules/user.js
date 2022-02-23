@@ -40,11 +40,13 @@ const loginDB = (userid, pwd) => {
             channelname: res.data.channelname,
           })
         );
-        history.replace('/');
+        // history.replace('/');
+        window.location.href = "/"
       })
+
       .catch((err) => {
-        console.log(err);
-        alert(err.res.data.errorMessage);
+        console.log("errorMessags", err.response.data);
+        alert(err.response.data);
       });
   };
 };
