@@ -15,7 +15,6 @@ import { actionCreators as userActions } from '../redux/modules/user';
 
 import { history } from '../redux/configureStore';
 
-
 const Video = (props) => {
   const dispatch = useDispatch();
   const postId = props.postId;
@@ -26,6 +25,7 @@ const Video = (props) => {
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
   const postOne = useSelector((state) => state.post.post);
+  console.log('비디오 유알엘 포스트원', postOne);
 
   console.log(props, '프롭스');
 
@@ -43,7 +43,7 @@ const Video = (props) => {
   console.log('Video', postOne, post, props);
   const loginUser = localStorage.getItem('channelName');
   //좋아요 버튼 on/off
-  const [likeButton, setlikeButton] = React.useState(false);
+
   let [isLike, setIsLike] = React.useState(false);
   // const btnLikeOn = () => {
   //   setlikeButton(true);
@@ -63,7 +63,6 @@ const Video = (props) => {
       return;
     }
 
-
     // let loginUser = { userName: loginUserName }
     // 클릭시 isJoin여부 토글 트루일때 참여취소_삭제
     setIsLike(!isLike);
@@ -74,11 +73,9 @@ const Video = (props) => {
     }
   };
 
-
   React.useEffect(() => {
     dispatch(userActions.loginCheckAPI());
   }, []);
-
 
   return (
     <section>
@@ -88,10 +85,11 @@ const Video = (props) => {
         frameBorder="0"
         // allowFullScreen
         controls
-        autoPlay="autoplay"
         muted="muted"
+        preload="auto"
       >
-        <source src={`${post && postOne.videoUrl}`} type="video/mp4" />
+        {/* <source src={`${post && post.videoUrl}`} type="video/mp4" /> */}
+        <source src={postOne.videoUrl} type="video/mp4" />
       </video>
       <Grid>
         <Text color="#000" size="20px" bold>

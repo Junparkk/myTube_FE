@@ -21,6 +21,7 @@ const PostCard = (props) => {
     e.currentTarget.load();
   };
   const { postId } = props;
+  console.log('ddddddddddddddddd', props);
   const test = useRef(null);
   return (
     <>
@@ -46,9 +47,9 @@ const PostCard = (props) => {
           </Wrap>
           <Wrap padding="0.5rem 0">
             <Wrap width="40px" height="40px" padding="5px">
-              <Img src="https://user-images.githubusercontent.com/82128525/154791377-100be25d-4b17-4995-8117-fc38e551d81c.png" />
+              <Img src={props.profile} />
             </Wrap>
-            <Wrap flex="column">
+            <Wrap flex="column" padding="5px 0">
               <Title>{props.title}</Title>
               <Title fontSize=".5rem" color="#808080">
                 {props.channelName}
@@ -74,7 +75,8 @@ const Card = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  height: 100%; ;
+  height: 100%;
+  border-radius: 50%;
 `;
 const Wrap = styled.div`
   display: flex;

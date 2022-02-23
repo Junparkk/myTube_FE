@@ -43,10 +43,10 @@ const Header = (props) => {
     }
   };
 
-  const searchClick = (e) => {
+  const searchClick = () => {
+    console.log('search', search);
     dispatch(searchActions.searchAPI(search));
   };
-
 
   //댓글 버튼 on/off
   const [commentButton, setCommentButton] = React.useState(false);
@@ -60,9 +60,90 @@ const Header = (props) => {
   };
 
   // 로그인 유무
-  const is_login = localStorage.getItem("token") ? true : false;
+  const is_login = localStorage.getItem('token') ? true : false;
 
   if (is_login) {
+    return (
+      <>
+        <Grid is_flex padding="10px">
+          <LeftIcon>
+            <FaBars size="1rem" onClick={openModal}></FaBars>
+          </LeftIcon>
+          <Modal
+            open={modalopen}
+            close={closeModal}
+            // value={post && post.curMembers}
+          ></Modal>
+
+          <Grid is_flex justifyContent="left" width="20%">
+            <img
+              src={MainLogo}
+              style={{
+                width: '150px',
+                height: '35px',
+              }}
+              onClick={() => {
+                history.push('/');
+              }}
+            />
+          </Grid>
+
+          <Grid is_flex justifyContent="center">
+            <Input
+              label=""
+              value={search}
+              _onKeyPress={keywordSearch}
+              _onChange={(e) => setSearch(e.target.value)}
+              placeholder="검색"
+              width="80%"
+              bg="#fff"
+              _onFocus={btnOn}
+            ></Input>
+            {commentButton ? (
+              <KeyboardIcon>
+                <FaKeyboard size="1rem" />
+              </KeyboardIcon>
+            ) : (
+              ''
+            )}
+
+            <SearchIcon onClick={searchClick}>
+              <BiSearch size="1rem"></BiSearch>
+            </SearchIcon>
+          </Grid>
+
+          <VideoIcon>
+            <BiVideoPlus
+              size="1rem"
+              onClick={() => {
+                history.push('/write');
+              }}
+            ></BiVideoPlus>
+          </VideoIcon>
+
+          <PadIcon>
+            <BsGrid3X3Gap size="1rem" />
+          </PadIcon>
+
+          <BellIcon>
+            <BsBell size="1rem" />
+          </BellIcon>
+
+          <LogoutIcon
+            onClick={() => {
+              dispatch(userActions.logOut());
+              history.replace('/login');
+              window.location.reload();
+            }}
+          >
+            <BsPersonCircle size="1rem"></BsPersonCircle>
+            로그아웃
+          </LogoutIcon>
+        </Grid>
+      </>
+    );
+  }
+
   return (
     <>
       <Grid is_flex padding="10px">
@@ -76,7 +157,7 @@ const Header = (props) => {
         ></Modal>
 
         <Grid is_flex justifyContent="left" width="20%">
-          <img
+          <img //노란줄 왜 이러는 걸까요
             src={MainLogo}
             style={{
               width: '150px',
@@ -107,115 +188,28 @@ const Header = (props) => {
             ''
           )}
 
-          <SearchIcon>
-
-            <BiSearch size="1rem" onClick={searchClick}></BiSearch>
-
- 
+          <SearchIcon onClick={searchClick}>
+            <BiSearch size="1rem"></BiSearch>
           </SearchIcon>
         </Grid>
-
-        <VideoIcon>
-          <BiVideoPlus
-            size="1rem"
-            onClick={() => {
-              history.push('/write');
-            }}
-          ></BiVideoPlus>
-        </VideoIcon>
 
         <PadIcon>
           <BsGrid3X3Gap size="1rem" />
         </PadIcon>
 
-        <BellIcon>
-          <BsBell size="1rem" />
-        </BellIcon>
-
-        <LogoutIcon
-        onClick={() => {
-          dispatch(userActions.logOut());
-          history.replace('/login')
-          window.location.reload()
-        }}>
-          <BsPersonCircle
-            size="1rem"></BsPersonCircle>
-        로그아웃</LogoutIcon>
+        <LoginIcon
+          onClick={() => {
+            window.location.href = '/';
+            // history.replace("/login");
+            // window.location.reload()
+          }}
+        >
+          <BsPersonCircle size="1.5rem"></BsPersonCircle>
+          로그인
+        </LoginIcon>
       </Grid>
     </>
   );
-};
-
-
-return (
-  <>
-    <Grid is_flex padding="10px">
-      <LeftIcon>
-        <FaBars size="1rem" onClick={openModal}></FaBars>
-      </LeftIcon>
-      <Modal
-        open={modalopen}
-        close={closeModal}
-        // value={post && post.curMembers}
-      ></Modal>
-
-      <Grid is_flex justifyContent="left" width="20%">
-        <img //노란줄 왜 이러는 걸까요
-          src={MainLogo}
-          style={{
-            width: '150px',
-            height: '35px',
-          }}
-          onClick={() => {
-            history.push('/');
-          }}
-        />
-      </Grid>
-
-      <Grid is_flex justifyContent="center">
-        <Input
-          label=""
-          value={search}
-          _onKeyPress={keywordSearch}
-          _onChange={(e) => setSearch(e.target.value)}
-          placeholder="검색"
-          width="80%"
-          bg="#fff"
-          _onFocus={btnOn}
-        ></Input>
-        {commentButton ? (
-          <KeyboardIcon>
-            <FaKeyboard size="1rem" />
-          </KeyboardIcon>
-        ) : (
-          ''
-        )}
-
-        <SearchIcon>
-
-          <BiSearch size="1rem" onClick={searchClick}></BiSearch>
-
-
-        </SearchIcon>
-      </Grid>
-
-      <PadIcon>
-        <BsGrid3X3Gap size="1rem" />
-      </PadIcon>
-
-      <LoginIcon
-        onClick={() => {
-        window.location.href = "/"
-        // history.replace("/login");
-        // window.location.reload()
-      }}>
-        <BsPersonCircle
-          size="1.5rem"
-        ></BsPersonCircle>
-      로그인</LoginIcon>
-    </Grid>
-  </>
-);
 };
 
 const LeftIcon = styled.button`
