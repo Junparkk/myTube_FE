@@ -120,6 +120,7 @@ const addPostAPI = (data) => {
 
     apis.add(data).then(function (res) {
       console.log(res);
+      history.replace('/');
       // window.location.replace('/');
     });
   };
@@ -132,6 +133,16 @@ const searchAPI = (keywordSearch) => {
     apis.wordSearch(keywordSearch).then(function (res) {
       console.log(res.data.posts);
       dispatch(searchPost(res.data.posts));
+    });
+  };
+};
+
+//게시물 삭제
+const clappingDeleteAPI = (postId) => {
+  return function (dispatch, useState, { history }) {
+    apis.delete(postId).then(function (res) {
+      console.log(res);
+      history.replace('/');
     });
   };
 };
@@ -169,6 +180,7 @@ export default handleActions(
 const actionCreators = {
   getPostAPI,
   addPostAPI,
+  clappingDeleteAPI,
 
   searchAPI,
 

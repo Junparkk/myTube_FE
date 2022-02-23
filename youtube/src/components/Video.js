@@ -11,14 +11,35 @@ import { MdOutlinePlaylistAdd, MdOutlineMoreHoriz } from 'react-icons/md';
 import { actionCreators as likeActions } from '../redux/modules/like';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
+
 import { history } from '../redux/configureStore';
+
 
 const Video = (props) => {
   const dispatch = useDispatch();
   const postId = props.postId;
+  const check = props.check.user.check;
+  const checkOne = props.one_list.channelName;
+  const videoOne = props.one_list.videoUrl;
+  console.log('비디오 유알엘', videoOne);
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
   const postOne = useSelector((state) => state.post.post);
+
+  console.log(props, '프롭스');
+
+  //좋아요 버튼 on/off
+  const [likeButton, setlikeButton] = React.useState(false);
+  const [isLogin, setIsLogin] = React.useState(false);
+
+  console.log(checkOne, check.channelName);
+
+  console.log('isLogin', isLogin);
+  const btnLikeOn = () => {
+    setlikeButton(true);
+  };
+
   console.log('Video', postOne, post, props);
   const loginUser = localStorage.getItem('channelName');
   //좋아요 버튼 on/off
@@ -42,6 +63,7 @@ const Video = (props) => {
       return;
     }
 
+
     // let loginUser = { userName: loginUserName }
     // 클릭시 isJoin여부 토글 트루일때 참여취소_삭제
     setIsLike(!isLike);
@@ -51,6 +73,13 @@ const Video = (props) => {
       dispatch(likeActions.addLikeDB(postId, loginUser));
     }
   };
+
+
+  React.useEffect(() => {
+    dispatch(userActions.loginCheckAPI());
+  }, []);
+
+
   return (
     <section>
       <video
@@ -144,10 +173,14 @@ const Video = (props) => {
             bg="#fff"
             width="25px"
             alignItems="center"
-            display="flex"
             padding="0"
+            _onClick={() => {
+              dispatch(postActions.clappingDeleteAPI(postId));
+            }}
+            display={checkOne === check.channelName ? '' : 'none'}
           >
-            <MdOutlineMoreHoriz color="#000" size="25" />
+            {/* <MdOutlineMoreHoriz color="#000" size="25" /> */}
+            <Text color="#000"> 삭제</Text>
           </Button>
         </Grid>
       </Grid>

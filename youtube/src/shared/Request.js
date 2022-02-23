@@ -3,7 +3,7 @@ import Category from '../components/Category';
 
 const instance = axios.create({
   baseURL: 'http://54.180.137.157/',
-  timeout: 1000,
+  // timeout: 1000,
   // headers: { Authorization: 'Bearer ' + localStorage.getItem('token') },
   headers: {
     Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -27,11 +27,12 @@ export const apis = {
   posts: () => instance.get('/api/posts'),
   post: (postId) => instance.get(`/api/posts/${postId}`, {}),
   add: (data) => instance.post('/api/posts', data),
+  delete: (postId) => instance.delete(`/api/posts/${postId}`),
 
   //user
   createUser: (user) => instance.post('/api/user/signup', user),
   createLogin: (user) => instance.post('/api/user/login', user),
-  checkToken: (user) => instance.post('/api/user/me', user),
+  checkToken: () => instance.get('/api/user/me'),
 
   //search
   wordSearch: (searchWord) => instance.get(`/api/posts?search=${searchWord}`),
