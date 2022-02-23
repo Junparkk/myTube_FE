@@ -59,7 +59,10 @@ const Header = (props) => {
     setCommentButton(false);
   };
 
+  // 로그인 유무
+  const is_login = localStorage.getItem("token") ? true : false;
 
+  if (is_login) {
   return (
     <>
       <Grid is_flex padding="10px">
@@ -73,7 +76,7 @@ const Header = (props) => {
         ></Modal>
 
         <Grid is_flex justifyContent="left" width="20%">
-          <img //노란줄 왜 이러는 걸까요
+          <img
             src={MainLogo}
             style={{
               width: '150px',
@@ -129,17 +132,90 @@ const Header = (props) => {
           <BsBell size="1rem" />
         </BellIcon>
 
-        <LoginIcon>
+        <LogoutIcon
+        onClick={() => {
+          dispatch(userActions.logOut());
+          history.replace('/login')
+          window.location.reload()
+        }}>
           <BsPersonCircle
-            size="1rem"
-            onClick={() => {
-              history.push('/login');
-            }}
-          ></BsPersonCircle>
-        </LoginIcon>
+            size="1rem"></BsPersonCircle>
+        로그아웃</LogoutIcon>
       </Grid>
     </>
   );
+};
+
+
+return (
+  <>
+    <Grid is_flex padding="10px">
+      <LeftIcon>
+        <FaBars size="1rem" onClick={openModal}></FaBars>
+      </LeftIcon>
+      <Modal
+        open={modalopen}
+        close={closeModal}
+        // value={post && post.curMembers}
+      ></Modal>
+
+      <Grid is_flex justifyContent="left" width="20%">
+        <img //노란줄 왜 이러는 걸까요
+          src={MainLogo}
+          style={{
+            width: '150px',
+            height: '35px',
+          }}
+          onClick={() => {
+            history.push('/');
+          }}
+        />
+      </Grid>
+
+      <Grid is_flex justifyContent="center">
+        <Input
+          label=""
+          value={search}
+          _onKeyPress={keywordSearch}
+          _onChange={(e) => setSearch(e.target.value)}
+          placeholder="검색"
+          width="80%"
+          bg="#fff"
+          _onFocus={btnOn}
+        ></Input>
+        {commentButton ? (
+          <KeyboardIcon>
+            <FaKeyboard size="1rem" />
+          </KeyboardIcon>
+        ) : (
+          ''
+        )}
+
+        <SearchIcon>
+
+          <BiSearch size="1rem" onClick={searchClick}></BiSearch>
+
+
+        </SearchIcon>
+      </Grid>
+
+      <PadIcon>
+        <BsGrid3X3Gap size="1rem" />
+      </PadIcon>
+
+      <LoginIcon
+        onClick={() => {
+        window.location.href = "/"
+        // history.replace("/login");
+        // window.location.reload()
+      }}>
+        <BsPersonCircle
+          size="1.5rem"
+        ></BsPersonCircle>
+      로그인</LoginIcon>
+    </Grid>
+  </>
+);
 };
 
 const LeftIcon = styled.button`
@@ -205,12 +281,22 @@ const BellIcon = styled.button`
 
 const LoginIcon = styled.button`
   cursor: pointer;
-  border: none;
   background-color: #fff;
   display: flex;
+  align-items: center;
   justifycontent: right;
-  // width: 55px;
-  padding: 0 20px;
+  width: 120px;
+  padding: 5px 10px;
+`;
+
+const LogoutIcon = styled.button`
+  cursor: pointer;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justifycontent: right;
+  width: 130px;
+  padding: 9px 10px;
 `;
 
 export default Header;

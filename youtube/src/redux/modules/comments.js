@@ -36,6 +36,7 @@ const initialState = {
   list: {},
   is_loaded: false,
 };
+//프로필 확인
 
 //댓글 조회
 const getCommentDB = (postId) => {
