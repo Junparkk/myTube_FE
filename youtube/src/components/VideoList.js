@@ -3,8 +3,14 @@ import React from 'react';
 import { Button, Grid, Input, Text } from '../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import HoverVideoPlayer from 'react-hover-video-player';
+
+
+import { transformDate } from '../shared/transformDate';
+
+
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { actionCreators as postActions } from '../redux/modules/post';
+
 const VideoList = (props) => {
   const dispatch = useDispatch();
   const postId = props.postId;
@@ -67,7 +73,7 @@ const VideoList = (props) => {
           {props.channelName}
         </Text>
         <Text color="#aaaaaa" size="10px " margin="0">
-          조회수 {props.views}회 &nbsp;&nbsp;6년전
+          조회수 {props.views}회 &nbsp;&nbsp;{transformDate(props.createdAt)}
         </Text>
       </Grid>
     </Grid>

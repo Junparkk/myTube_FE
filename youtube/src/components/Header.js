@@ -33,7 +33,7 @@ const Header = (props) => {
     setModalopen(false);
   };
 
-  //search (비동기라서 dispatch로 넘겨보자)
+  //search
   const [search, setSearch] = React.useState('');
   const keywordSearch = (e) => {
     //엔터치면 값이 입력되게
@@ -42,6 +42,11 @@ const Header = (props) => {
       dispatch(searchActions.searchAPI(e.target.value));
     }
   };
+
+  const searchClick = (e) => {
+    dispatch(searchActions.searchAPI(search));
+  };
+
 
   //댓글 버튼 on/off
   const [commentButton, setCommentButton] = React.useState(false);
@@ -53,6 +58,7 @@ const Header = (props) => {
   const btnOff = () => {
     setCommentButton(false);
   };
+
 
   return (
     <>
@@ -82,7 +88,9 @@ const Header = (props) => {
         <Grid is_flex justifyContent="center">
           <Input
             label=""
+            value={search}
             _onKeyPress={keywordSearch}
+            _onChange={(e) => setSearch(e.target.value)}
             placeholder="검색"
             width="80%"
             bg="#fff"
@@ -97,12 +105,10 @@ const Header = (props) => {
           )}
 
           <SearchIcon>
-            <BiSearch
-              size="1rem"
-              onClick={() => {
-                history.push('/');
-              }}
-            ></BiSearch>
+
+            <BiSearch size="1rem" onClick={searchClick}></BiSearch>
+
+ 
           </SearchIcon>
         </Grid>
 

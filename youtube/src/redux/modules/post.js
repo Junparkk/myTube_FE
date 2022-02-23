@@ -127,7 +127,6 @@ const addPostAPI = (data) => {
 //영상 검색
 const searchAPI = (keywordSearch) => {
   return function (dispatch, useState, { history }) {
-    console.log('API', keywordSearch);
     history.push(`/search?word=${keywordSearch}`);
 
     apis.wordSearch(keywordSearch).then(function (res) {

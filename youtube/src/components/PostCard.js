@@ -3,9 +3,11 @@ import { useRef } from 'react';
 import { history } from '../redux/configureStore';
 import styled from 'styled-components';
 import { Grid, Input, Text } from '../elements';
+
+import { transformDate } from '../shared/transformDate';
+
 import { useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
-// import { getOwnPropertyDescriptors } from 'immer/dist/internal';
 
 const PostCard = (props) => {
   const dispatch = useDispatch();
@@ -54,7 +56,7 @@ const PostCard = (props) => {
               <Title fontSize=".5rem" color="#808080">
                 조회수 {props.views}회
                 <span style={{ fontSize: '.5rem', color: '#808080' }}>
-                  ∙ {props.createdAt} ∙
+                  &nbsp; ∙ {transformDate(props.createdAt)} ∙
                 </span>
               </Title>
             </Wrap>
