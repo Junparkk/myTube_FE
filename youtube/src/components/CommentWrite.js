@@ -3,14 +3,17 @@ import { Button, Grid, Input, Image, Text } from '../elements';
 
 import { MdOutlineSort } from 'react-icons/md';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { history } from '../redux/configureStore';
 
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const { postId, profile } = props;
-  console.log('CommentWrite', props, profile);
+  const post_list = useSelector((state) => state.post.list);
+  const post = post_list.find((p) => p.postId === postId);
+  console.log('CommentWrite', post);
+
   //댓글 쓰기
   const [comment, setComment] = React.useState('');
 
@@ -66,7 +69,7 @@ const CommentWrite = (props) => {
       </Grid>
       <Grid is_flex>
         {/* Profile */}
-        <Image shape="circle" size="50" />
+        <Image shape="circle" size="50" src={post && post.profile} />
         <Grid justifyContent="left" alignItems="flex-start">
           <Input
             placeholder="공개 댓글 추가..."

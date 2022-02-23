@@ -15,7 +15,6 @@ const STATE_POST = 'STATE_POST';
 const SEARCH_POST = 'SEARCH_POST';
 const SET_CATEGORY = 'SET_CATEGORY';
 
-
 // Image
 const IMAGE_URL = 'IMAGE_URL';
 
@@ -29,19 +28,16 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post,
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
-const getOnePost = createAction(ONE_POST, (post, comments) => ({
+const getOnePost = createAction(ONE_POST, (post) => ({
   post,
-  comments,
 }));
 const statePost = createAction(STATE_POST, () => ({}));
 
 // 이미지 url 저장
 const getImageUrl = createAction(IMAGE_URL, (img_url) => ({ img_url }));
 
-
 // post Search
 const searchPost = createAction(SEARCH_POST, (word) => ({ word }));
-
 
 //카테고리 설정
 const setCategory = createAction(SET_CATEGORY, (category) => ({
@@ -73,7 +69,6 @@ const initialState = {
 
 //middleware
 
-
 //전체 영상 조회
 
 // 카테고리 별 상품 조회
@@ -95,12 +90,13 @@ const getPostCategory = (category) => {
 };
 //게시물 상세 페이지 가기
 const getOnePostDB = (postId) => {
+  console.log('GetOnePostDB In!');
   return function (dispatch, getState, { history }) {
     instance
       .get(`/api/posts/${postId}`)
       .then((response) => {
         console.log('GetOnePostDB', response.data);
-        dispatch(setPost(response.data.posts));
+        dispatch(getOnePost(response.data.post));
       })
       .catch((error) => {
         console.log('getOnePostDB_ERror', error);
@@ -150,12 +146,14 @@ export default handleActions(
 
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
+        console.log('SetPost');
         draft.list = action.payload.post_list;
       }),
     [ONE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.post = action.payload.post;
-        draft.post.comments = action.payload.comments;
+        console.log('one_post', action.payload);
+        // draft.post.comments = action.payload.comments;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -177,7 +175,6 @@ const actionCreators = {
 
   getPostCategory,
   getOnePostDB,
-
 };
 
 export { actionCreators };

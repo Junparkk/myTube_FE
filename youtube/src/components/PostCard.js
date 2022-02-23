@@ -3,9 +3,12 @@ import { useRef } from 'react';
 import { history } from '../redux/configureStore';
 import styled from 'styled-components';
 import { Grid, Input, Text } from '../elements';
+import { useDispatch } from 'react-redux';
+import { actionCreators as postActions } from '../redux/modules/post';
 // import { getOwnPropertyDescriptors } from 'immer/dist/internal';
 
 const PostCard = (props) => {
+  const dispatch = useDispatch();
   //마우스 오버시 동영상 실행
   const handleOnMouseOver = (e) => {
     e.currentTarget.play();
@@ -22,13 +25,14 @@ const PostCard = (props) => {
       <Card
         onClick={() => {
           history.push(`/api/posts/${postId}`);
+          dispatch(postActions.getOnePostDB(postId));
         }}
       >
         <Wrap flex="column">
           <Wrap height="160px">
             <video
               ref={test}
-              style={{ width: '100%', height: 'auto' }}
+              style={{ width: '100%', height: 'auto', objectFit: 'fill' }}
               loop
               muted
               poster={props.imageUrl}

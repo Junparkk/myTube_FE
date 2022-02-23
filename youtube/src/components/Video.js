@@ -3,14 +3,33 @@ import { Button, Grid, Input, Text, Image } from '../elements';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { AiFillLike, AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { GiSaveArrow } from 'react-icons/gi';
 import { MdOutlinePlaylistAdd, MdOutlineMoreHoriz } from 'react-icons/md';
+
+import { actionCreators as commentsActions } from '../redux/modules/comments';
+import { actionCreators as postActions } from '../redux/modules/post';
+
 const Video = (props) => {
+  const dispatch = useDispatch();
   const postId = props.postId;
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
+  const postOne = useSelector((state) => state.post.post);
+  console.log('Video', postOne);
+
+  //좋아요 버튼 on/off
+  const [likeButton, setlikeButton] = React.useState(false);
+
+  const btnLikeOn = () => {
+    setlikeButton(true);
+  };
+
+  const btnLikeOff = () => {
+    setlikeButton(false);
+  };
+
   return (
     <section>
       <video
@@ -22,31 +41,46 @@ const Video = (props) => {
         autoPlay="autoplay"
         muted="muted"
       >
-        <source src={`${post.videoUrl}`} type="video/mp4" />
+        <source src={`${post && post.videoUrl}`} type="video/mp4" />
       </video>
       <Grid>
         <Text color="#000" size="20px" bold>
-          {post.title}
+          {post && post.title}
         </Text>
       </Grid>
 
       <Grid is_flex>
         <Text width="200px" color="#606060" margin="1px">
-          조회수 {post.views}회
+          조회수 {post && post.views}회
         </Text>
         <Grid is_flex justifyContent="right">
           {/* 좋아요 */}
-          <Button
-            bg="#fff"
-            width="80px"
-            fontSize="15px"
-            alignItems="center"
-            display="flex"
-            padding="0"
-          >
-            <AiOutlineLike color="#000" size="25" />{' '}
-            <Text color="#000"> &nbsp;&nbsp;100</Text>
-          </Button>
+          {likeButton ? (
+            <Button
+              bg="#fff"
+              width="80px"
+              fontSize="15px"
+              alignItems="center"
+              display="flex"
+              padding="0"
+            >
+              <AiFillLike color="#000" size="25" onClick={btnLikeOff} />{' '}
+              <Text color="#000"> &nbsp;&nbsp;100</Text>
+            </Button>
+          ) : (
+            <Button
+              bg="#fff"
+              width="80px"
+              fontSize="15px"
+              alignItems="center"
+              display="flex"
+              padding="0"
+            >
+              <AiOutlineLike color="#000" size="25" onClick={btnLikeOn} />{' '}
+              <Text color="#000"> &nbsp;&nbsp;100</Text>
+            </Button>
+          )}
+
           {/* 싫어요 */}
           <Button
             bg="#fff"
@@ -105,9 +139,9 @@ const Video = (props) => {
       </Grid>
       <Grid borderBottom="1px solid #e0e0e0" borderTop="1px solid #e0e0e0">
         <Grid is_flex>
-          <Image shape="circle" />
+          <Image shape="circle" src={post && post.profile} />
           <Grid>
-            <Text color="#000">{post.channelName}</Text>
+            <Text color="#000">{post && post.channelName}</Text>
             <Text color="#000">구독자 123만명</Text>
           </Grid>
           <Button width="100px" bg="#cc0a00" color="#ffffff">
