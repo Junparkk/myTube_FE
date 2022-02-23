@@ -38,7 +38,12 @@ const Modal = (props) => {
           <ModalHeader>
             <Grid is_flex padding="0px" justifyContent="left" height="52px">
               <LeftIcon>
-                <FaBars color="#000" size={25} onClick={close} padding="0 20px">
+                <FaBars
+                  color="#000"
+                  size="1rem"
+                  onClick={close}
+                  padding="0 20px"
+                >
                   {header}
                 </FaBars>
               </LeftIcon>

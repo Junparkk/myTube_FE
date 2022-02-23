@@ -19,7 +19,6 @@ const CategoryBarDetail = (props) => {
   const { postId } = props;
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
-  console.log('categoryBarDetail', postId, post_list, post);
   return (
     <CategoryBox>
       {categoryList.map((e, i) => (

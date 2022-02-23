@@ -42,14 +42,29 @@ const Header = (props) => {
       dispatch(searchActions.searchAPI(e.target.value));
     }
   };
+
   const searchClick = (e) => {
     dispatch(searchActions.searchAPI(search));
   };
+
+
+  //댓글 버튼 on/off
+  const [commentButton, setCommentButton] = React.useState(false);
+
+  const btnOn = () => {
+    setCommentButton(true);
+  };
+
+  const btnOff = () => {
+    setCommentButton(false);
+  };
+
+
   return (
     <>
       <Grid is_flex padding="10px">
         <LeftIcon>
-          <FaBars size="25px" onClick={openModal}></FaBars>
+          <FaBars size="1rem" onClick={openModal}></FaBars>
         </LeftIcon>
         <Modal
           open={modalopen}
@@ -62,6 +77,7 @@ const Header = (props) => {
             src={MainLogo}
             style={{
               width: '150px',
+              height: '35px',
             }}
             onClick={() => {
               history.push('/');
@@ -78,20 +94,27 @@ const Header = (props) => {
             placeholder="검색"
             width="80%"
             bg="#fff"
+            _onFocus={btnOn}
           ></Input>
-
-          <KeyboardIcon>
-            <FaKeyboard size="40px" />
-          </KeyboardIcon>
+          {commentButton ? (
+            <KeyboardIcon>
+              <FaKeyboard size="1rem" />
+            </KeyboardIcon>
+          ) : (
+            ''
+          )}
 
           <SearchIcon>
-            <BiSearch size="40px" onClick={searchClick}></BiSearch>
+
+            <BiSearch size="1rem" onClick={searchClick}></BiSearch>
+
+ 
           </SearchIcon>
         </Grid>
 
         <VideoIcon>
           <BiVideoPlus
-            size="50px"
+            size="1rem"
             onClick={() => {
               history.push('/write');
             }}
@@ -99,16 +122,16 @@ const Header = (props) => {
         </VideoIcon>
 
         <PadIcon>
-          <BsGrid3X3Gap size="35px" />
+          <BsGrid3X3Gap size="1rem" />
         </PadIcon>
 
         <BellIcon>
-          <BsBell size="35px" />
+          <BsBell size="1rem" />
         </BellIcon>
 
         <LoginIcon>
           <BsPersonCircle
-            size="35px"
+            size="1rem"
             onClick={() => {
               history.push('/login');
             }}
@@ -120,12 +143,13 @@ const Header = (props) => {
 };
 
 const LeftIcon = styled.button`
+  // width: 70px;
   cursor: pointer;
   border: none;
   background-color: #fff;
   display: flex;
   justifycontent: left;
-  width: 70px;
+  padding: 0 20px;
 `;
 
 const KeyboardIcon = styled.button`
@@ -135,15 +159,21 @@ const KeyboardIcon = styled.button`
   display: flex;
   justifycontent: right;
   width: 50px;
+  position: absolute;
+  right: 19%;
 `;
 
 const SearchIcon = styled.button`
   cursor: pointer;
-  border: none;
-  background-color: #fff;
+  border: 0.3px d3d3d3;
+  background-color: #f8f8f8;
   display: flex;
-  justifycontent: right;
-  width: 45px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  height: 41px;
+  width: 80px;
+  right: 15%;
 `;
 
 const VideoIcon = styled.button`
@@ -179,7 +209,8 @@ const LoginIcon = styled.button`
   background-color: #fff;
   display: flex;
   justifycontent: right;
-  width: 55px;
+  // width: 55px;
+  padding: 0 20px;
 `;
 
 export default Header;

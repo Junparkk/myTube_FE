@@ -28,9 +28,8 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post,
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
-const getOnePost = createAction(ONE_POST, (post, comments) => ({
+const getOnePost = createAction(ONE_POST, (post) => ({
   post,
-  comments,
 }));
 const statePost = createAction(STATE_POST, () => ({}));
 
@@ -91,12 +90,13 @@ const getPostCategory = (category) => {
 };
 //게시물 상세 페이지 가기
 const getOnePostDB = (postId) => {
+  console.log('GetOnePostDB In!');
   return function (dispatch, getState, { history }) {
     instance
       .get(`/api/posts/${postId}`)
       .then((response) => {
         console.log('GetOnePostDB', response.data);
-        dispatch(setPost(response.data.posts));
+        dispatch(getOnePost(response.data.post));
       })
       .catch((error) => {
         console.log('getOnePostDB_ERror', error);
@@ -145,12 +145,14 @@ export default handleActions(
 
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
+        console.log('SetPost');
         draft.list = action.payload.post_list;
       }),
     [ONE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.post = action.payload.post;
-        draft.post.comments = action.payload.comments;
+        console.log('one_post', action.payload);
+        // draft.post.comments = action.payload.comments;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
