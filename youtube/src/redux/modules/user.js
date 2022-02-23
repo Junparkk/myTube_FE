@@ -7,14 +7,17 @@ const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
 const GET_USER = 'GET_USER';
 const SET_USER = 'SET_USER';
+const CHECK = 'CHECK';
 
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
 const setUser = createAction(SET_USER, (user) => ({ user }));
+const check = createAction(CHECK, (user) => ({ user }));
 
 const initialState = {
   user: null,
   is_login: false,
+  check: [],
 };
 
 const user_initial = {
@@ -88,6 +91,15 @@ const signupDB = (userid, channel_name, pwd, profile) => {
       });
   };
 };
+
+const loginCheckAPI = () => {
+  return function (dispatch, getState, { history }) {
+    apis.checkToken().then((res) => {
+      console.log('너는 나오니?', res);
+      dispatch(check(res.data));
+    });
+  };
+};
 //
 export default handleActions(
   {
@@ -104,7 +116,13 @@ export default handleActions(
         draft.is_login = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    [CHECK]: (state, action) =>
+      produce(state, (draft) => {
+        console.log('페이로드 확인', action.payload.user);
+        draft.check = action.payload.user;
+      }),
   },
+
   initialState
 );
 
@@ -113,6 +131,7 @@ const actionCreators = {
   signupDB,
   getUser,
   logOut,
+  loginCheckAPI,
 };
 
 export { actionCreators };

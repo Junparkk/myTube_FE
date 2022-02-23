@@ -16,13 +16,15 @@ const Detail = (props) => {
   const id = props.match.params.postId;
   const comment_list = useSelector((state) => state.comments.list);
   const post_list = useSelector((state) => state.post.list);
+  const one_list = useSelector((state) => state.post.post);
+  const check = useSelector((state) => state);
+
+  console.log('check', check.user.check);
   // const post = post_list.find((p) => p.postId === id);
   console.log('Detail', post_list);
   //새로고침 시 리덕스 데이터가 날아 갔을 때 주소창에서 포스트 아이디를 받아서 하나만 다시 요청
   React.useEffect(() => {
-    if (!post_list.length) {
-      dispatch(postActions.getOnePostDB(id));
-    }
+    dispatch(postActions.getOnePostDB(id));
   }, []);
   React.useEffect(() => {
     dispatch(commentsActions.getCommentDB(id));
@@ -37,7 +39,12 @@ const Detail = (props) => {
     <>
       <Grid bg="white" height="100%" is_flex alignItems="flex-start">
         <Grid width="72%" padding="20px">
-          <Video postId={id} post_list={post_list} />
+          <Video
+            postId={id}
+            post_list={post_list}
+            check={check}
+            one_list={one_list}
+          />
           <CommentWrite postId={id} comment_list={comment_list} />
           <CommentList postId={id} comment_list={comment_list} />
         </Grid>

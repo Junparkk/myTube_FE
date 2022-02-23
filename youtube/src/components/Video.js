@@ -10,18 +10,27 @@ import { MdOutlinePlaylistAdd, MdOutlineMoreHoriz } from 'react-icons/md';
 
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 const Video = (props) => {
   const dispatch = useDispatch();
   const postId = props.postId;
+  const check = props.check.user.check;
+  const checkOne = props.one_list.channelName;
+  const videoOne = props.one_list.videoUrl;
+  console.log('비디오 유알엘', videoOne);
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
   const postOne = useSelector((state) => state.post.post);
-  console.log('Video', postOne);
+  console.log(props, '프롭스');
 
   //좋아요 버튼 on/off
   const [likeButton, setlikeButton] = React.useState(false);
+  const [isLogin, setIsLogin] = React.useState(false);
 
+  console.log(checkOne, check.channelName);
+
+  console.log('isLogin', isLogin);
   const btnLikeOn = () => {
     setlikeButton(true);
   };
@@ -29,6 +38,10 @@ const Video = (props) => {
   const btnLikeOff = () => {
     setlikeButton(false);
   };
+
+  React.useEffect(() => {
+    dispatch(userActions.loginCheckAPI());
+  }, []);
 
   return (
     <section>
@@ -130,10 +143,14 @@ const Video = (props) => {
             bg="#fff"
             width="25px"
             alignItems="center"
-            display="flex"
             padding="0"
+            _onClick={() => {
+              dispatch(postActions.clappingDeleteAPI(postId));
+            }}
+            display={checkOne === check.channelName ? '' : 'none'}
           >
-            <MdOutlineMoreHoriz color="#000" size="25" />
+            {/* <MdOutlineMoreHoriz color="#000" size="25" /> */}
+            <Text color="#000"> 삭제</Text>
           </Button>
         </Grid>
       </Grid>
