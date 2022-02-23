@@ -4,6 +4,8 @@ import { Button, Grid, Input, Text } from '../elements';
 
 import HoverVideoPlayer from 'react-hover-video-player';
 
+import { transformDate } from '../shared/transformDate';
+
 const VideoList = (props) => {
   console.log('VideoList', props, props.videoUrl);
   return (
@@ -41,7 +43,7 @@ const VideoList = (props) => {
           {props.channelName}
         </Text>
         <Text color="#aaaaaa" size="10px " margin="0">
-          조회수 {props.views}회 &nbsp;&nbsp;6년전
+          조회수 {props.views}회 &nbsp;&nbsp;{transformDate(props.createdAt)}
         </Text>
       </Grid>
     </Grid>

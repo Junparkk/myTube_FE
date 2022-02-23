@@ -15,7 +15,6 @@ const STATE_POST = 'STATE_POST';
 const SEARCH_POST = 'SEARCH_POST';
 const SET_CATEGORY = 'SET_CATEGORY';
 
-
 // Image
 const IMAGE_URL = 'IMAGE_URL';
 
@@ -38,10 +37,8 @@ const statePost = createAction(STATE_POST, () => ({}));
 // 이미지 url 저장
 const getImageUrl = createAction(IMAGE_URL, (img_url) => ({ img_url }));
 
-
 // post Search
 const searchPost = createAction(SEARCH_POST, (word) => ({ word }));
-
 
 //카테고리 설정
 const setCategory = createAction(SET_CATEGORY, (category) => ({
@@ -72,7 +69,6 @@ const initialState = {
 };
 
 //middleware
-
 
 //전체 영상 조회
 
@@ -131,7 +127,6 @@ const addPostAPI = (data) => {
 //영상 검색
 const searchAPI = (keywordSearch) => {
   return function (dispatch, useState, { history }) {
-    console.log('API', keywordSearch);
     history.push(`/search?word=${keywordSearch}`);
 
     apis.wordSearch(keywordSearch).then(function (res) {
@@ -177,7 +172,6 @@ const actionCreators = {
 
   getPostCategory,
   getOnePostDB,
-
 };
 
 export { actionCreators };
