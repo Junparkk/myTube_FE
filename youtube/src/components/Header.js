@@ -44,7 +44,6 @@ const Header = (props) => {
   };
 
   const searchClick = () => {
-    console.log('search', search);
     dispatch(searchActions.searchAPI(search));
   };
 
@@ -189,7 +188,9 @@ const Header = (props) => {
           )}
 
           <SearchIcon onClick={searchClick}>
+
             <BiSearch size="1rem"></BiSearch>
+
           </SearchIcon>
         </Grid>
 

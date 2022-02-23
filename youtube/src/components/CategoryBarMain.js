@@ -48,7 +48,7 @@ const CategoryBarMain = () => {
 };
 
 const CategoryBox = styled.div`
-  height: 10vh;
+  height: 5vh;
   max-width: 100%;
   display: flex;
   justify-content: left;
@@ -61,6 +61,8 @@ const CategoryBox = styled.div`
   }
   //center
   justify-content: center;
+  border-bottom: 1px solid #e3e3e3;
+  border-top: 1px solid #e3e3e3;
 `;
 const CategoryCircle = styled.p`
   margin: 10px;
