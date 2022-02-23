@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import React from 'react';
 
 const Image = (props) => {
-  const { shape, src, size, padding } = props;
+  const { shape, src, size, padding, margin } = props;
 
   const styles = {
     src: src,
     size: size,
     padding,
+    margin,
   };
 
   if (shape === 'circle') {
@@ -34,6 +35,7 @@ Image.defaultProps = {
   src: 'https://i.insider.com/4f3433986bb3f7b67a00003c?width=600&format=jpeg&auto=webp',
   size: '60',
   padding: '0 20px',
+  margin: '0',
 };
 
 const ImageDefault = styled.div`

@@ -2,15 +2,17 @@ import React from 'react';
 import { useRef } from 'react';
 import { history } from '../redux/configureStore';
 import styled from 'styled-components';
-import { Grid, Input, Text } from '../elements';
+import { Grid, Input, Text, Image } from '../elements';
 
 import { transformDate } from '../shared/transformDate';
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
+import { GiConsoleController } from 'react-icons/gi';
 
 const PostCard = (props) => {
+  console.log('PostCard', props);
   const dispatch = useDispatch();
   //마우스 오버시 동영상 실행
   const handleOnMouseOver = (e) => {
@@ -45,8 +47,12 @@ const PostCard = (props) => {
             </video>
           </Wrap>
           <Wrap padding="0.5rem 0">
-            <Wrap width="40px" height="40px" padding="5px">
-              <Img src="https://user-images.githubusercontent.com/82128525/154791377-100be25d-4b17-4995-8117-fc38e551d81c.png" />
+            <Wrap width="60px" height="60px" padding="5px">
+              <Image
+                shape="circle"
+                src={props.profile}
+                style={{ margin: '0' }}
+              />
             </Wrap>
             <Wrap flex="column">
               <Title>{props.title}</Title>
