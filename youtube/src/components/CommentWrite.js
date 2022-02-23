@@ -12,6 +12,9 @@ const CommentWrite = (props) => {
   const { postId, profile } = props;
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
+
+  const myProfile = localStorage.getItem('profile');
+  console.log(myProfile);
   console.log('CommentWrite', post);
 
   //댓글 쓰기
@@ -69,7 +72,7 @@ const CommentWrite = (props) => {
       </Grid>
       <Grid is_flex>
         {/* Profile */}
-        <Image shape="circle" size="50" src={post && post.profile} />
+        <Image shape="circle" size="50" src={myProfile} />
         <Grid justifyContent="left" alignItems="flex-start">
           <Input
             placeholder="공개 댓글 추가..."

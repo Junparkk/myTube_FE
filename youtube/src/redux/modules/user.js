@@ -2,6 +2,7 @@ import { createAction, handleActions } from 'redux-actions';
 import { produce } from 'immer';
 import { token } from '../../shared/Cookie';
 import { apis } from '../../shared/Request';
+import instance from '../../shared/Request';
 
 const LOG_IN = 'LOG_IN';
 const LOG_OUT = 'LOG_OUT';
@@ -41,10 +42,27 @@ const loginDB = (userid, pwd) => {
           })
         );
         history.replace('/');
+        dispatch(tokenCheck());
       })
       .catch((err) => {
         console.log(err);
         alert(err.res.data.errorMessage);
+      });
+  };
+};
+
+const tokenCheck = () => {
+  return function (disaptch, getState, { history }) {
+    instance
+      .get(`/api/user/me`)
+      .then((response) => {
+        console.log('tokenCheck Success', response.data);
+        localStorage.setItem('channelName', response.data.channelName);
+        localStorage.setItem('profile', response.dataprofile);
+      })
+      .catch((error) => {
+        console.log('tokenCheck Error', error);
+        console.error(error);
       });
   };
 };
@@ -100,6 +118,8 @@ export default handleActions(
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
         localStorage.removeItem('token');
+        localStorage.removeItem('channelName');
+        localStorage.removeItem('profile');
         draft.user = null;
         draft.is_login = false;
       }),
@@ -113,6 +133,7 @@ const actionCreators = {
   signupDB,
   getUser,
   logOut,
+  tokenCheck,
 };
 
 export { actionCreators };

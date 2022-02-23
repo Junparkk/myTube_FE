@@ -4,19 +4,18 @@ import { Button, Grid, Input, Text } from '../elements';
 import { useDispatch, useSelector } from 'react-redux';
 import HoverVideoPlayer from 'react-hover-video-player';
 
-
 import { transformDate } from '../shared/transformDate';
 
+import { history } from '../redux/configureStore';
 
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { actionCreators as postActions } from '../redux/modules/post';
 
 const VideoList = (props) => {
   const dispatch = useDispatch();
-  const postId = props.postId;
+  const { postId } = props;
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
-
   //마우스 오버시 동영상 실행
   const handleOnMouseOver = (e) => {
     e.currentTarget.play();
@@ -29,7 +28,15 @@ const VideoList = (props) => {
 
   return (
     <Grid is_flex width="300px" margin="10px" alignItems="flex-start">
-      <Grid height="100px" margin="0 10px 0 0">
+      <Grid
+        height="100px"
+        margin="0 10px 0 0"
+        _onClick={() => {
+          console.log('onClick', postId);
+          history.push(`/api/posts/${postId}`);
+          dispatch(postActions.getOnePostDB(postId));
+        }}
+      >
         <video
           ref={test}
           style={{ width: '100%', height: '100%', objectFit: 'fill' }}

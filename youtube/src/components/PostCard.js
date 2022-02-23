@@ -8,6 +8,7 @@ import { transformDate } from '../shared/transformDate';
 
 import { useDispatch } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
+import { actionCreators as commentsActions } from '../redux/modules/comments';
 
 const PostCard = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ const PostCard = (props) => {
   };
   const { postId } = props;
   const test = useRef(null);
-
   return (
     <>
       <Card
