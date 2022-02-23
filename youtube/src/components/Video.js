@@ -24,8 +24,13 @@ const Video = (props) => {
   console.log('비디오 유알엘', videoOne);
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
+
+  const postOne = useSelector((state) => state.post.post);
+  console.log('비디오 유알엘 포스트원', postOne);
+
   // const postOne = useSelector((state) => state.post.post);
   const { postOne } = props;
+
 
   console.log(props, '프롭스');
 
@@ -42,6 +47,7 @@ const Video = (props) => {
   console.log('Video', postOne);
   const loginUser = localStorage.getItem('channelName');
   //좋아요 버튼 on/off
+
   let [isLike, setIsLike] = React.useState(false);
   // const btnLikeOn = () => {
   //   setlikeButton(true);
@@ -74,12 +80,12 @@ const Video = (props) => {
   React.useEffect(() => {
     dispatch(userActions.loginCheckAPI());
   }, []);
-
   React.useEffect(() => {
     if (!postOne) {
       dispatch(postActions.getOnePostDB(postId));
     }
   }, [postOne]);
+
 
   return (
     <section>

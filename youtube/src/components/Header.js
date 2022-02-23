@@ -188,7 +188,9 @@ const Header = (props) => {
           )}
 
           <SearchIcon onClick={searchClick}>
-            <BiSearch size="1rem" onClick={searchClick}></BiSearch>
+
+            <BiSearch size="1rem"></BiSearch>
+
           </SearchIcon>
         </Grid>
 

@@ -131,7 +131,6 @@ const searchAPI = (keywordSearch) => {
     history.push(`/search?word=${keywordSearch}`);
 
     apis.wordSearch(keywordSearch).then(function (res) {
-      console.log(res.data.posts);
       dispatch(searchPost(res.data.posts));
     });
   };
