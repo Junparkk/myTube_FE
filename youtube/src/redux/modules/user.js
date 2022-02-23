@@ -41,12 +41,13 @@ const loginDB = (userid, pwd) => {
             channelname: res.data.channelname,
           })
         );
-        history.replace('/');
+        window.location.href = '/';
         dispatch(tokenCheck());
       })
+
       .catch((err) => {
-        console.log(err);
-        alert(err.res.data.errorMessage);
+        console.log('errorMessags', err.response.data);
+        alert(err.response.data);
       });
   };
 };
