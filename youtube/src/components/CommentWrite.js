@@ -16,7 +16,7 @@ const CommentWrite = (props) => {
   const post = post_list.find((p) => p.postId === postId);
 
   const myProfile = localStorage.getItem('profile');
-
+  const comment_list = useSelector((state) => state.comments.list[postId]);
   //댓글 쓰기
   const [comment, setComment] = React.useState('');
 
@@ -52,13 +52,14 @@ const CommentWrite = (props) => {
 
   React.useEffect(() => {
     dispatch(userActions.tokenCheck());
+    dispatch(commentsActions.getCommentDB(postId));
   }, []);
   return (
     <>
       <Grid is_flex justifyContent="left">
         <Text color="#000" padding="10px" width="100px">
           {' '}
-          댓글 2개
+          댓글 {comment_list && comment_list.length}개
         </Text>
         <Button
           width="150px"

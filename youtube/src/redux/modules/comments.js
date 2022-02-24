@@ -47,7 +47,6 @@ const getCommentDB = (postId) => {
         dispatch(setComment(postId, response.data.comments));
       })
       .catch((error) => {
-        console.log('get Error', error);
         console.error(error);
       });
   };
@@ -62,8 +61,10 @@ const addCommentDB = (postId, comment) => {
         dispatch(addComment(comment));
       })
       .catch((error) => {
-        console.log('전송실패', error);
         console.error(error);
+      })
+      .then(() => {
+        dispatch(getCommentDB(postId));
       });
   };
 };
@@ -71,15 +72,12 @@ const addCommentDB = (postId, comment) => {
 //댓글 수정
 const editCommentDB = (postId, commentId, comment) => {
   return function (dispatch, getState, { history }) {
-    console.log('Im in! patch', comment, postId, commentId);
     instance
       .put(`/api/posts/${postId}/comments/${commentId}`, comment)
       .then((response) => {
         window.alert('comment update complete');
       })
-      .catch((error) => {
-        console.log('댓글 수정 오류 발생');
-      })
+      .catch((error) => {})
       .then(() => {
         dispatch(getCommentDB(postId));
       });
@@ -95,9 +93,7 @@ const deleteCommentDB = (postId, commentId) => {
         window.alert('댓글 삭제가 완료되었습니다!');
         dispatch(deleteComment(postId, commentId));
       })
-      .catch((error) => {
-        console.log('댓글 삭제 실패');
-      })
+      .catch((error) => {})
       .then(() => {
         dispatch(getCommentDB(postId));
       });
@@ -108,27 +104,24 @@ export default handleActions(
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list[action.payload.postId] = action.payload.commentList;
-        console.log(
-          'setComment',
-          draft.list[action.payload.postId],
-          action.payload.commentList
-        );
+        draft.is_loaded = true;
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list[action.payload.postId].unshift(action.payload.comment);
-        console.log('AddComment', state, draft, action.payload);
+        draft.is_loaded = true;
       }),
     [EDIT_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log('EditComment', action.payload);
         draft.list[action.payload.commentId] = action.payload.comment;
+        draft.is_loaded = true;
       }),
     [DELETE_COMMENT]: (state, action) =>
       produce(state, (draft) => {
         draft.list[action.payload.postId].filter(
           (c, i) => c.commentId !== action.payload.commentId
         );
+        draft.is_loaded = true;
       }),
   },
   initialState

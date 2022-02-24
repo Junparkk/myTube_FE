@@ -8,6 +8,8 @@ import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { BsTrash } from 'react-icons/bs';
 
+import { transformDate } from '../shared/transformDate';
+
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const comment_list = useSelector((state) => state.comments.list);
@@ -36,7 +38,7 @@ const CommentItem = (props) => {
   const dispatch = useDispatch();
   const { postId, channelName, commentId, comment } = props;
   const comment_list = useSelector((state) => state.comments.list[postId]);
-
+  const checkId = useSelector((state) => state.user.check.channelName);
   //input 창
   let [input, setInput] = useState();
   const [editable, setEditable] = useState(false);
@@ -85,7 +87,7 @@ const CommentItem = (props) => {
               {props.channelName}
             </Text>
             <Text width="100px" color="#999999" padding="0px" margin="0px">
-              11시간 전
+              &nbsp; {transformDate(comment_list.createdAt)}
             </Text>
           </Grid>
           <Grid is_flex>
@@ -129,7 +131,9 @@ const CommentItem = (props) => {
                 comment
               )}
             </Text>
+            {/* 수정/삭제 */}
             <Grid is_flex justifyContent="right">
+              {/* 수정 */}
               <Button
                 bg="#fff"
                 width="15px"
@@ -138,11 +142,12 @@ const CommentItem = (props) => {
                 display="flex"
                 padding="0"
                 _onClick={editOn}
+                display={props.channelName === checkId ? '' : 'none'}
                 style={{ cursor: 'pointer' }}
               >
                 <HiOutlinePencil color="#000" />
               </Button>
-
+              {/* 삭제 */}
               <Button
                 bg="#fff"
                 width="15px"
@@ -151,6 +156,7 @@ const CommentItem = (props) => {
                 display="flex"
                 padding="0"
                 _onClick={deleteComment}
+                display={props.channelName === checkId ? '' : 'none'}
               >
                 <BsTrash color="#000" />
               </Button>

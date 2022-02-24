@@ -32,9 +32,7 @@ const VideoList = (props) => {
         height="100px"
         margin="0 10px 0 0"
         _onClick={() => {
-          console.log('onClick', postId);
-          // history.push(`/api/posts/${postId}`);
-          window.location.href = `/api/posts/${postId}`;
+          history.push(`/api/posts/${postId}`);
           dispatch(postActions.getOnePostDB(postId));
         }}
       >

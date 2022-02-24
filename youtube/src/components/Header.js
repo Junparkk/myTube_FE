@@ -64,7 +64,7 @@ const Header = (props) => {
   if (is_login) {
     return (
       <>
-        <Grid is_flex padding="10px">
+        <Grid is_flex padding="20px">
           <LeftIcon>
             <FaBars size="1rem" onClick={openModal}></FaBars>
           </LeftIcon>
@@ -188,9 +188,7 @@ const Header = (props) => {
           )}
 
           <SearchIcon onClick={searchClick}>
-
             <BiSearch size="1rem"></BiSearch>
-
           </SearchIcon>
         </Grid>
 

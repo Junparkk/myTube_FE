@@ -22,7 +22,7 @@ const DropDown = (props) => {
         ? '여행'
         : num === 5
         ? '동물'
-        : num === 5
+        : num === 6
         ? '게임'
         : '기타'
     );

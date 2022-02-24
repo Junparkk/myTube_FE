@@ -13,11 +13,10 @@ const Signup = () => {
   const [userid, setUserId] = React.useState('');
   const [channel_name, setChannelName] = React.useState('');
   const [pwd, setPwd] = React.useState('');
-  const [pwd_check, setPwdCheck] = React.useState("");
+  const [pwd_check, setPwdCheck] = React.useState('');
   const [profile, setProfile] = React.useState('');
 
   const signup = () => {
-    console.log('singup_in!');
     dispatch(userActions.signupDB(userid, channel_name, pwd, profile));
   };
 
@@ -48,7 +47,9 @@ const Signup = () => {
           />
         </Grid>
 
-        <Noticetext>영문(필수), 숫자(필수)로 이루어진 4~16글자를 사용하세요</Noticetext>
+        <Noticetext>
+          영문(필수), 숫자(필수)로 이루어진 4~16글자를 사용하세요
+        </Noticetext>
         <NewIdText>새로운 Gmail 아이디 만들기</NewIdText>
 
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
@@ -65,7 +66,9 @@ const Signup = () => {
           />
         </Grid>
 
-        <Noticetext>영문이나 숫자 또는 한글로 이루어진 2~16글자를 사용하세요</Noticetext>
+        <Noticetext>
+          영문이나 숫자 또는 한글로 이루어진 2~16글자를 사용하세요
+        </Noticetext>
 
         <Grid padding="0px 10%" margin="10px 0px 15px 0px" height="13%">
           <Input
@@ -97,7 +100,10 @@ const Signup = () => {
           />
         </Grid>
 
-        <Noticetext>영문(필수), 숫자(필수), 특수문자(선택)로 이루어진 4~20글자를 사용하세요</Noticetext>
+        <Noticetext>
+          영문(필수), 숫자(필수), 특수문자(선택)로 이루어진 4~20글자를
+          사용하세요
+        </Noticetext>
 
         <Grid is_flex>
           <GoLogin

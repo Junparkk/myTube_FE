@@ -6,13 +6,11 @@ import { Grid, Input, Text, Image } from '../elements';
 
 import { transformDate } from '../shared/transformDate';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { GiConsoleController } from 'react-icons/gi';
-
 const PostCard = (props) => {
-  console.log('PostCard', props);
   const dispatch = useDispatch();
   //마우스 오버시 동영상 실행
   const handleOnMouseOver = (e) => {
@@ -24,6 +22,7 @@ const PostCard = (props) => {
   };
   const { postId } = props;
   const test = useRef(null);
+  const postOne = useSelector((state) => state.post.post);
   return (
     <>
       <Card
@@ -33,12 +32,13 @@ const PostCard = (props) => {
         }}
       >
         <Wrap flex="column">
-          <Wrap height="200px">
+          <Wrap height="250px">
             <video
               ref={test}
               style={{ width: '100%', height: 'auto', objectFit: 'fill' }}
               loop
               muted
+              preload="none"
               poster={props.imageUrl}
               onMouseOver={handleOnMouseOver}
               onMouseOut={handleOnMouseOut}
@@ -71,13 +71,14 @@ const PostCard = (props) => {
 
 const Card = styled.div`
   width: 100%;
-  height: 250px;
-  :&hover  {
+  height: 100%;
+  &:hover {
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
     -ms-transform: scale(1.2);
     -o-transform: scale(1.2);
+    transition: 0.5s;
   }
 `;
 

@@ -20,24 +20,17 @@ const Detail = (props) => {
   const one_list = useSelector((state) => state.post.post);
   const check = useSelector((state) => state);
 
-  console.log('check', check.user.check);
 
   const post = post_list.filter((p) => p.postId !== id);
   const postOne = useSelector((state) => state.post.post);
 
   // const post = post_list.find((p) => p.postId === id);
-  console.log('Detail', post_list);
   //새로고침 시 리덕스 데이터가 날아 갔을 때 주소창에서 포스트 아이디를 받아서 하나만 다시 요청
-  React.useEffect(() => {
-    dispatch(postActions.getOnePostDB(id));
-    dispatch(commentsActions.getCommentDB(id));
-    if (!postOne) {
-      dispatch(postActions.getOnePostDB(id));
-    }
-  }, []);
+
   React.useEffect(() => {
     dispatch(commentsActions.getCommentDB(id));
-  }, [post_list]);
+  }, [postOne]);
+
   React.useEffect(() => {
     dispatch(postActions.getPostAPI());
   }, []);
