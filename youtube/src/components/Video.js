@@ -8,7 +8,6 @@ import { RiShareForwardLine } from 'react-icons/ri';
 import { GiSaveArrow } from 'react-icons/gi';
 import { MdOutlinePlaylistAdd, MdOutlineMoreHoriz } from 'react-icons/md';
 
-import { actionCreators as likeActions } from '../redux/modules/like';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { actionCreators as postActions } from '../redux/modules/post';
 import { actionCreators as userActions } from '../redux/modules/user';
@@ -20,42 +19,17 @@ const Video = (props) => {
   const postId = props.postId;
   const check = props.check.user.check;
   const checkOne = props.one_list.channelName;
-  const videoOne = props.one_list.videoUrl;
-  console.log('비디오 유알엘', videoOne);
   const post_list = useSelector((state) => state.post.list);
   const post = post_list.find((p) => p.postId === postId);
 
   const postOne = useSelector((state) => state.post.post);
-  console.log('비디오 유알엘 포스트원', postOne);
 
-  // const postOne = useSelector((state) => state.post.post);
-  const { postOne } = props;
-
-
-  console.log(props, '프롭스');
-
-  //좋아요 버튼 on/off
-  const [likeButton, setlikeButton] = React.useState(false);
-  const [isLogin, setIsLogin] = React.useState(false);
-
-  console.log(checkOne, check.channelName);
-
-  const btnLikeOn = () => {
-    setlikeButton(true);
-  };
-
-  console.log('Video', postOne);
+  console.log('Video', postOne.likes);
   const loginUser = localStorage.getItem('channelName');
   //좋아요 버튼 on/off
 
   let [isLike, setIsLike] = React.useState(false);
-  // const btnLikeOn = () => {
-  //   setlikeButton(true);
-  // };
 
-  // const btnLikeOff = () => {
-  //   setlikeButton(false);
-  // };
   //좋아요 버튼 토글 여부
   const clickLike = () => {
     // 로그인 유저가 아닌 경우 참여하기 불가
@@ -67,25 +41,29 @@ const Video = (props) => {
       return;
     }
 
-    // let loginUser = { userName: loginUserName }
-    // 클릭시 isJoin여부 토글 트루일때 참여취소_삭제
+    // 클릭시 isLike여부 토글 트루일때 좋아요취소_삭제
     setIsLike(!isLike);
     if (isLike) {
-      dispatch(likeActions.deleteLikeDB(postId, loginUser));
+      dispatch(postActions.deleteLikeDB(postId));
     } else {
-      dispatch(likeActions.addLikeDB(postId, loginUser));
+      dispatch(postActions.addLikeDB(postId));
     }
   };
 
   React.useEffect(() => {
     dispatch(userActions.loginCheckAPI());
   }, []);
+
   React.useEffect(() => {
+    dispatch(postActions.getOnePostDB(postId));
     if (!postOne) {
       dispatch(postActions.getOnePostDB(postId));
     }
-  }, [postOne]);
-
+    if (postOne.videoUrl) {
+      console.log('Video Id_check Yes!');
+      setIsLike(true);
+    }
+  }, []);
 
   return (
     <section>
@@ -122,7 +100,9 @@ const Video = (props) => {
                 alignItems="center"
                 display="flex"
                 padding="0"
-                // _onClick={clickLike()}
+                _onClick={() => {
+                  clickLike();
+                }}
               >
                 {isLike ? (
                   <AiFillLike color="#000" size="25" />
@@ -132,7 +112,7 @@ const Video = (props) => {
 
                 <Text color="#000">
                   {' '}
-                  &nbsp;&nbsp;{postOne && postOne.likes}
+                  &nbsp;&nbsp;{postOne && postOne.likes.length}
                 </Text>
               </Button>
 

@@ -70,6 +70,10 @@ const CommentItem = (props) => {
   const deleteComment = () => {
     dispatch(commentsActions.deleteCommentDB(postId, commentId));
   };
+
+  React.useEffect(() => {
+    dispatch(commentsActions.getCommentDB(postId));
+  }, []);
   return (
     <>
       <Grid is_flex padding="10px" alignItems="flex-start">

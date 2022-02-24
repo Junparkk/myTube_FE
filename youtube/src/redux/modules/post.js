@@ -15,6 +15,9 @@ const STATE_POST = 'STATE_POST';
 const SEARCH_POST = 'SEARCH_POST';
 const SET_CATEGORY = 'SET_CATEGORY';
 
+//좋아요
+const EDIT_LIKE = 'EDIT_LIKE';
+
 // Image
 const IMAGE_URL = 'IMAGE_URL';
 
@@ -42,6 +45,12 @@ const searchPost = createAction(SEARCH_POST, (word) => ({ word }));
 //카테고리 설정
 const setCategory = createAction(SET_CATEGORY, (category) => ({
   category,
+}));
+
+//좋아요
+const editLike = createAction(EDIT_LIKE, (postId, isPush) => ({
+  postId,
+  isPush,
 }));
 
 const initialPost = {
@@ -146,6 +155,34 @@ const clappingDeleteAPI = (postId) => {
   };
 };
 
+//좋아요
+const addLikeDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .post(`/api/posts/${postId}/like/`)
+      .then((response) => {
+        dispatch(editLike(postId, true));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+//좋아요취소
+const deleteLikeDB = (postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .delete(`/api/posts/${postId}/like/`)
+      .then((response) => {
+        dispatch(editLike(postId, false));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
 export default handleActions(
   {
     [SET_CATEGORY]: (state, action) =>
@@ -172,6 +209,22 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list = action.payload.word;
       }),
+
+    [EDIT_LIKE]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex(
+          (e) => e.postId === action.payload.postId
+        );
+        // if (action.payload.isPush) {
+        //   draft.list[idx].curMembers.push(action.payload.post.userName);
+        //   draft.is_loaded = true;
+        // } else {
+        //   draft.list[idx].curMembers = draft.list[idx].curMembers.filter(
+        //     (e) => e !== action.payload.post.userName
+        //   );
+        //   draft.is_loaded = true;
+        // }
+      }),
   },
   initialState
 );
@@ -180,11 +233,12 @@ const actionCreators = {
   getPostAPI,
   addPostAPI,
   clappingDeleteAPI,
-
   searchAPI,
-
   getPostCategory,
   getOnePostDB,
+  editLike,
+  addLikeDB,
+  deleteLikeDB,
 };
 
 export { actionCreators };

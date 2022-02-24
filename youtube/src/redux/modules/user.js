@@ -62,7 +62,7 @@ const tokenCheck = () => {
       .then((response) => {
         console.log('tokenCheck Success', response.data);
         localStorage.setItem('channelName', response.data.channelName);
-        localStorage.setItem('profile', response.dataprofile);
+        localStorage.setItem('profile', response.data.profile);
       })
       .catch((error) => {
         console.log('tokenCheck Error', error);
@@ -156,7 +156,6 @@ const actionCreators = {
   loginCheckAPI,
 
   tokenCheck,
-
 };
 
 export { actionCreators };

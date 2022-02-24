@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { actionCreators as commentsActions } from '../redux/modules/comments';
 import { history } from '../redux/configureStore';
 
+import { actionCreators as userActions } from '../redux/modules/user';
+
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const { postId, profile } = props;
@@ -14,8 +16,6 @@ const CommentWrite = (props) => {
   const post = post_list.find((p) => p.postId === postId);
 
   const myProfile = localStorage.getItem('profile');
-  console.log(myProfile);
-  console.log('CommentWrite', post);
 
   //댓글 쓰기
   const [comment, setComment] = React.useState('');
@@ -49,6 +49,10 @@ const CommentWrite = (props) => {
     dispatch(commentsActions.addCommentDB(postId, content));
     setComment('');
   };
+
+  React.useEffect(() => {
+    dispatch(userActions.tokenCheck());
+  }, []);
   return (
     <>
       <Grid is_flex justifyContent="left">

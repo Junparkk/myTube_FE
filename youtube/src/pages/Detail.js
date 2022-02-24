@@ -30,16 +30,13 @@ const Detail = (props) => {
   //새로고침 시 리덕스 데이터가 날아 갔을 때 주소창에서 포스트 아이디를 받아서 하나만 다시 요청
   React.useEffect(() => {
     dispatch(postActions.getOnePostDB(id));
-
+    dispatch(commentsActions.getCommentDB(id));
     if (!postOne) {
       dispatch(postActions.getOnePostDB(id));
     }
   }, []);
   React.useEffect(() => {
     dispatch(commentsActions.getCommentDB(id));
-    // if (!post) {
-    //   dispatch(postActions.getOnePostDB(id));
-    // }
   }, [post_list]);
   React.useEffect(() => {
     dispatch(postActions.getPostAPI());

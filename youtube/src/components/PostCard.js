@@ -23,7 +23,6 @@ const PostCard = (props) => {
     e.currentTarget.load();
   };
   const { postId } = props;
-  console.log('ddddddddddddddddd', props);
   const test = useRef(null);
   return (
     <>
@@ -48,10 +47,8 @@ const PostCard = (props) => {
             </video>
           </Wrap>
           <Wrap padding="0.5rem 0">
-
             <Wrap width="40px" height="40px" padding="5px">
               <Img src={props.profile} />
-
             </Wrap>
             <Wrap flex="column" padding="5px 0">
               <Title>{props.title}</Title>
@@ -75,6 +72,13 @@ const PostCard = (props) => {
 const Card = styled.div`
   width: 100%;
   height: 250px;
+  :&hover  {
+    transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    -o-transform: scale(1.2);
+  }
 `;
 
 const Img = styled.img`
