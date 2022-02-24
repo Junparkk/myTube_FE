@@ -200,7 +200,7 @@ const Header = (props) => {
 
         <LoginIcon
           onClick={() => {
-            window.location.href = '/';
+            window.location.href = '/login';
             // history.replace("/login");
             // window.location.reload()
           }}
