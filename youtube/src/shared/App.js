@@ -12,7 +12,13 @@ import Detail from '../pages/Detail';
 import Header from '../components/Header';
 import Search from '../pages/Search';
 
+import { useSelector, useDispatch } from 'react-redux';
+import Spinner from './Spinner';
 function App() {
+  //spinner
+  const post_is_loaded = useSelector((state) => state.post.is_loaded);
+  const user_is_loaded = useSelector((state) => state.user.is_loaded);
+  const comment_is_loaded = useSelector((state) => state.comments.is_loaded);
   return (
     <>
       <Header></Header>
@@ -24,7 +30,9 @@ function App() {
         <Route path="/write/:postId" exact component={Write}></Route>
         <Route path="/search" exact component={Search}></Route>
         <Route path="/api/posts/:postId" exact component={Detail}></Route>
-
+        {!post_is_loaded && !user_is_loaded && !comment_is_loaded && (
+          <Spinner />
+        )}
       </ConnectedRouter>
     </>
   );

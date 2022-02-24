@@ -84,7 +84,7 @@ const Write = (props) => {
               <Text size=".5rem">제목(필수 항목)</Text>
               <Input
                 type="text"
-                maxLength="20"
+                maxLength="40"
                 placeholder="동영상을 설명하는 제목을 추가하세요"
                 onChange={changeTitle}
               ></Input>

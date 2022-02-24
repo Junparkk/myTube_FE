@@ -19,6 +19,7 @@ const initialState = {
   user: null,
   is_login: false,
   check: [],
+  is_loaded: true,
 };
 
 const user_initial = {
@@ -34,7 +35,6 @@ const loginDB = (userid, pwd) => {
       })
       .then((res) => {
         const accessToken = res.data.token;
-        console.log('LoginDB', accessToken);
         localStorage.setItem('token', `${accessToken}`);
         token('token', `${accessToken}`);
 
@@ -49,7 +49,6 @@ const loginDB = (userid, pwd) => {
       })
 
       .catch((err) => {
-        console.log('errorMessags', err.response.data);
         alert(err.response.data);
       });
   };
@@ -60,12 +59,10 @@ const tokenCheck = () => {
     instance
       .get(`/api/user/me`)
       .then((response) => {
-        console.log('tokenCheck Success', response.data);
         localStorage.setItem('channelName', response.data.channelName);
         localStorage.setItem('profile', response.data.profile);
       })
       .catch((error) => {
-        console.log('tokenCheck Error', error);
         console.error(error);
       });
   };
@@ -97,13 +94,10 @@ const signupDB = (userid, channel_name, pwd, profile) => {
         profile: images[num],
       })
       .then((response) => {
-        console.log('Signup_response', response);
-        console.log('회원가입 성공');
         window.alert('😆 성공적으로 회원가입이 완료되었습니다! 😆');
         history.push('/login');
       })
       .catch((error) => {
-        console.log('회원가입 실패');
         alert(error.response.data.errorMessage);
         // window.alert(error.errorMessage)
         return;
@@ -114,7 +108,6 @@ const signupDB = (userid, channel_name, pwd, profile) => {
 const loginCheckAPI = () => {
   return function (dispatch, getState, { history }) {
     apis.checkToken().then((res) => {
-      console.log('너는 나오니?', res);
       dispatch(check(res.data));
     });
   };
@@ -127,6 +120,7 @@ export default handleActions(
         token('', 'sucsess');
         draft.user = action.payload.user;
         draft.is_login = true;
+        draft.is_loaded = true;
       }),
     [LOG_OUT]: (state, action) =>
       produce(state, (draft) => {
@@ -135,12 +129,16 @@ export default handleActions(
         localStorage.removeItem('profile');
         draft.user = null;
         draft.is_login = false;
+        draft.is_loaded = true;
       }),
-    [GET_USER]: (state, action) => produce(state, (draft) => {}),
+    [SET_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loaded = true;
+      }),
     [CHECK]: (state, action) =>
       produce(state, (draft) => {
-        console.log('페이로드 확인', action.payload.user);
         draft.check = action.payload.user;
+        draft.is_loaded = true;
       }),
   },
 

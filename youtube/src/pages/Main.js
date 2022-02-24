@@ -40,13 +40,13 @@ const Wrap = styled.div`
   grid-template-rows: auto;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 25px;
   @media screen and (min-width: 1607px) {
     grid-template-columns: repeat(4, 1fr);
-    width: 60%;
+    width: 80%;
   }
   @media screen and (min-width: 960px) and (max-width: 1607px) {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   @media screen and (min-width: 551px) and (max-width: 960px) {
     grid-template-columns: repeat(3, 1fr);

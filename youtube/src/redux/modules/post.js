@@ -17,7 +17,8 @@ const SET_CATEGORY = 'SET_CATEGORY';
 
 //좋아요
 const EDIT_LIKE = 'EDIT_LIKE';
-
+//구독
+const EDIT_SUBSCRIBE = 'EDIT_SUBSCRIBE';
 // Image
 const IMAGE_URL = 'IMAGE_URL';
 
@@ -53,6 +54,17 @@ const editLike = createAction(EDIT_LIKE, (postId, isPush) => ({
   isPush,
 }));
 
+//구독
+//좋아요
+const editSubscribe = createAction(
+  EDIT_SUBSCRIBE,
+  (channelName, postId, isPush) => ({
+    channelName,
+    postId,
+    isPush,
+  })
+);
+
 const initialPost = {
   postId: '_id',
   channelName: '홍길동',
@@ -74,6 +86,7 @@ const initialState = {
   img: 'https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FlOeQ2%2Fbtrtys8M1UX%2FEXvjbkD77erg12mnimKaK0%2Fimg.png',
   filterState: 0, // 0 : 전체보기 1 : 판매 중 2: 판매 완료
   category: '전체',
+  is_loaded: false,
 };
 
 //middleware
@@ -87,29 +100,22 @@ const getPostCategory = (category) => {
       instance
         .get(`/api/posts?category=${category}`)
         .then((response) => {
-          console.log('category in!');
           dispatch(setPost(response.data.posts, false));
           dispatch(setCategory(category));
         })
-        .catch((error) => {
-          console.log('Error!');
-        });
+        .catch((error) => {});
     };
   }
 };
 //게시물 상세 페이지 가기
 const getOnePostDB = (postId) => {
-  console.log('GetOnePostDB In!');
   return function (dispatch, getState, { history }) {
     instance
       .get(`/api/posts/${postId}`)
       .then((response) => {
-        console.log('GetOnePostDB', response.data);
         dispatch(getOnePost(response.data.post));
       })
-      .catch((error) => {
-        console.log('getOnePostDB_ERror', error);
-      });
+      .catch((error) => {});
   };
 };
 //전체 상품 조회
@@ -117,7 +123,6 @@ const getOnePostDB = (postId) => {
 const getPostAPI = () => {
   return async function (dispatch, useState, { history }) {
     await apis.posts().then(function (res) {
-      console.log(res);
       dispatch(setPost(res.data.posts));
     });
   };
@@ -125,10 +130,7 @@ const getPostAPI = () => {
 //영상 등록
 const addPostAPI = (data) => {
   return function (dispatch, useState, { history }) {
-    console.log('API', data);
-
     apis.add(data).then(function (res) {
-      console.log(res);
       history.replace('/');
       // window.location.replace('/');
     });
@@ -149,7 +151,6 @@ const searchAPI = (keywordSearch) => {
 const clappingDeleteAPI = (postId) => {
   return function (dispatch, useState, { history }) {
     apis.delete(postId).then(function (res) {
-      console.log(res);
       history.replace('/');
     });
   };
@@ -165,6 +166,9 @@ const addLikeDB = (postId) => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .then((response) => {
+        dispatch(getOnePostDB(postId));
       });
   };
 };
@@ -179,6 +183,43 @@ const deleteLikeDB = (postId) => {
       })
       .catch((error) => {
         console.error(error);
+      })
+      .then((response) => {
+        dispatch(getOnePostDB(postId));
+      });
+  };
+};
+
+//구독
+const addSubscribeDB = (channelName, postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .post(`/api/posts/${channelName}/subscribe/`)
+      .then((response) => {
+        dispatch(editSubscribe(channelName, true));
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .then((response) => {
+        dispatch(getOnePostDB(postId));
+      });
+  };
+};
+
+//구독취소
+const deleteSubscribeDB = (channelName, postId) => {
+  return function (dispatch, getState, { history }) {
+    instance
+      .delete(`/api/posts/${channelName}/subscribe/`)
+      .then((response) => {
+        dispatch(editSubscribe(channelName, false));
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .then((response) => {
+        dispatch(getOnePostDB(postId));
       });
   };
 };
@@ -188,26 +229,29 @@ export default handleActions(
     [SET_CATEGORY]: (state, action) =>
       produce(state, (draft) => {
         draft.category = action.payload.category;
+        draft.is_loaded = true;
       }),
 
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        console.log('SetPost');
         draft.list = action.payload.post_list;
+        draft.is_loaded = true;
       }),
     [ONE_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.post = action.payload.post;
-        console.log('one_post', action.payload);
+        draft.is_loaded = true;
         // draft.post.comments = action.payload.comments;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.unshift(action.payload.post);
+        draft.is_loaded = true;
       }),
     [SEARCH_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list = action.payload.word;
+        draft.is_loaded = true;
       }),
 
     [EDIT_LIKE]: (state, action) =>
@@ -215,6 +259,23 @@ export default handleActions(
         let idx = draft.list.findIndex(
           (e) => e.postId === action.payload.postId
         );
+        draft.is_loaded = true;
+        // if (action.payload.isPush) {
+        //   draft.list[idx].curMembers.push(action.payload.post.userName);
+        //   draft.is_loaded = true;
+        // } else {
+        //   draft.list[idx].curMembers = draft.list[idx].curMembers.filter(
+        //     (e) => e !== action.payload.post.userName
+        //   );
+        //   draft.is_loaded = true;
+        // }
+      }),
+    [EDIT_SUBSCRIBE]: (state, action) =>
+      produce(state, (draft) => {
+        let idx = draft.list.findIndex(
+          (e) => e.postId === action.payload.postId
+        );
+        draft.is_loaded = true;
         // if (action.payload.isPush) {
         //   draft.list[idx].curMembers.push(action.payload.post.userName);
         //   draft.is_loaded = true;
@@ -239,6 +300,9 @@ const actionCreators = {
   editLike,
   addLikeDB,
   deleteLikeDB,
+  editSubscribe,
+  addSubscribeDB,
+  deleteSubscribeDB,
 };
 
 export { actionCreators };

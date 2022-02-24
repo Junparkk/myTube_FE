@@ -30,7 +30,6 @@ import { AiOutlineTrophy } from 'react-icons/ai';
 
 const Modal = (props) => {
   const { open, close, header, value } = props;
-  console.log('modal', props);
   if (open) {
     return (
       <OpenModal>

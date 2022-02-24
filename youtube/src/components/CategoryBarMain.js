@@ -55,7 +55,7 @@ const CategoryBox = styled.div`
   justify-content: left;
   align-items: center;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   @media only screen and (max-width: 768px) {
     margin-bottom: 35px;
     padding-bottom: 0px;
