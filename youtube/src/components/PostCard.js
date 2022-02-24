@@ -72,7 +72,7 @@ const PostCard = (props) => {
 const Card = styled.div`
   width: 100%;
   height: 250px;
-  :&hover  {
+  &:hover {
     transform: scale(1.2);
     -webkit-transform: scale(1.2);
     -moz-transform: scale(1.2);
