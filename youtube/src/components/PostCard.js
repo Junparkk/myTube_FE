@@ -33,7 +33,7 @@ const PostCard = (props) => {
         }}
       >
         <Wrap flex="column">
-          <Wrap height="160px">
+          <Wrap height="200px">
             <video
               ref={test}
               style={{ width: '100%', height: 'auto', objectFit: 'fill' }}

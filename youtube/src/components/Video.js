@@ -25,6 +25,7 @@ const Video = (props) => {
   const postOne = useSelector((state) => state.post.post);
 
   console.log('Video', postOne.likes);
+  const [isLogin, setIsLogin] = React.useState(false);
   const loginUser = localStorage.getItem('channelName');
   //좋아요 버튼 on/off
 
