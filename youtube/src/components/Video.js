@@ -29,8 +29,6 @@ const Video = (props) => {
   console.log('비디오 유알엘 포스트원', postOne);
 
   // const postOne = useSelector((state) => state.post.post);
-  const { postOne } = props;
-
 
   console.log(props, '프롭스');
 
@@ -85,7 +83,6 @@ const Video = (props) => {
       dispatch(postActions.getOnePostDB(postId));
     }
   }, [postOne]);
-
 
   return (
     <section>
