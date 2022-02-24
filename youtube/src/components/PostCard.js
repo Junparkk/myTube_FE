@@ -34,7 +34,7 @@ const PostCard = (props) => {
         }}
       >
         <Wrap flex="column">
-          <Wrap height="160px">
+          <Wrap height="200px">
             <video
               ref={test}
               style={{ width: '100%', height: 'auto', objectFit: 'fill' }}
@@ -48,10 +48,8 @@ const PostCard = (props) => {
             </video>
           </Wrap>
           <Wrap padding="0.5rem 0">
-
             <Wrap width="40px" height="40px" padding="5px">
               <Img src={props.profile} />
-
             </Wrap>
             <Wrap flex="column" padding="5px 0">
               <Title>{props.title}</Title>

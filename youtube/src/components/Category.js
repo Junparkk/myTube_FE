@@ -11,6 +11,7 @@ const Category = (prpos) => {
     '여행',
     '동물',
     '게임',
+    '기타',
   ];
   return (
     <>

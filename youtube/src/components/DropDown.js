@@ -22,7 +22,9 @@ const DropDown = (props) => {
         ? '여행'
         : num === 5
         ? '동물'
-        : '게임'
+        : num === 5
+        ? '게임'
+        : '기타'
     );
   };
 
@@ -37,6 +39,7 @@ const DropDown = (props) => {
         <Li onClick={() => setFilter(4)}>여행</Li>
         <Li onClick={() => setFilter(5)}>동물</Li>
         <Li onClick={() => setFilter(6)}>게임</Li>
+        <Li onClick={() => setFilter(7)}>기타</Li>
       </Ul>
     </>
   );

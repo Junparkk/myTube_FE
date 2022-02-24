@@ -42,7 +42,8 @@ const Wrap = styled.div`
   justify-content: space-between;
   gap: 10px;
   @media screen and (min-width: 1607px) {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    width: 60%;
   }
   @media screen and (min-width: 960px) and (max-width: 1607px) {
     grid-template-columns: repeat(4, 1fr);

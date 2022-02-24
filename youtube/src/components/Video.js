@@ -30,7 +30,6 @@ const Video = (props) => {
 
   // const postOne = useSelector((state) => state.post.post);
 
-
   console.log(props, '프롭스');
 
   //좋아요 버튼 on/off
@@ -84,7 +83,6 @@ const Video = (props) => {
       dispatch(postActions.getOnePostDB(postId));
     }
   }, [postOne]);
-
 
   return (
     <section>
